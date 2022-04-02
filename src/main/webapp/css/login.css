@@ -1,0 +1,38 @@
+body {
+    background: rgb(252,252,252);
+    background: linear-gradient(90deg, rgba(252,252,252,1) 0%, rgba(198,198,198,1) 43%, rgba(217,217,217,1) 67%, rgba(255,255,255,1) 100%);
+}
+
+.full-width {
+    min-height: 65vh;
+}
+
+form {
+    background: rgba(205,221,228,1);
+    background: -moz-linear-gradient(left, rgba(205,221,228,1) 0%, rgba(155,178,191,1) 55%, rgba(182,218,241,1) 100%);
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    width:400px;
+}
+.alert
+{
+
+    margin-top: 15px;
+}
+.btn
+{
+    background-color: red;
+}
+#registerbutton {
+    margin-top: 10px;
+}
+#header{
+    margin-top: 50px;
+}
+#title{
+    margin-top: 20px;
+}
+@media (max-width: 575.98px) {
+    form {
+        width: 100%;
+    }
+}
