@@ -1,0 +1,15 @@
+#logopkwhite{
+    margin-right: 10px;
+}
+.navbar{
+    background-color: #0D005F;
+    margin-bottom: 50px;
+}
+
+@media (max-width: 575.98px) {
+    .navbar {
+
+        margin-bottom: 20px;
+    }
+}
+
