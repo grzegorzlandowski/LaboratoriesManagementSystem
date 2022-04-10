@@ -40,13 +40,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/gfx/logopk.png","/register")
+                .antMatchers("/gfx/logopk.png","/register","/upload","/deleteimage")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll() .loginPage("/login").defaultSuccessUrl("/")
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .csrf().disable();
 
 
     }

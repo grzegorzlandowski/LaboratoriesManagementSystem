@@ -2,8 +2,10 @@ body{
     background: rgb(230,234,235);
     background: linear-gradient(0deg, rgba(230,234,235,1) 0%, rgba(207,229,230,1) 27%, rgba(13,0,95,1) 92%);
     height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-#test{
+#bodycontainer{
     background-color: #6B6FA4;
     padding-bottom: 30px;
     margin-bottom: 30px;

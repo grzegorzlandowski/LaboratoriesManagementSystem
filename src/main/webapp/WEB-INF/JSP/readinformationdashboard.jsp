@@ -11,31 +11,16 @@
     <link rel="stylesheet" href="/../css/navbar.css">
     <link rel="stylesheet" href="/../css/body.css">
     <link rel="stylesheet" href="/../css/footer.css">
-
 </head>
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
-<div id="bodycontainer" class="container rounded">
-    <center><h1 style="color: white">Aktualności:</h1></center>
-<table class="table table-dark table-hover">
-    <tr class="table-dark">
-        <td class="table-dark">Tytuł</td>
-        <td class="table-dark">Data</td>
-    </tr>
-    <tbody>
-    <c:forEach var="InformationDashboard" items="${informationdashboardlist}">
-        <c:if test="${InformationDashboard.isactive== true}" >
-       <tr class="table-dark" onclick="window.location='/aktualnosci/${InformationDashboard.id}'">
-            <th class="table-dark" data-column="id"> ${InformationDashboard.title}</th>
-            <th class="table-dark" data-column="nazwa">${InformationDashboard.date}</th>
+<div id="bodycontainer" class="container rounded ">
 
-        </tr>
-    </c:if>
-    </c:forEach>
-    </tbody>
-</table>
+    <div class="text-end" style="color:#FFE8E8">${readinformationdashboard.date}</div>
 
+<h1 class="text-center" style="color:#FFE8E8;">${readinformationdashboard.title}</h1>
 
+    <div style="color:#FFE8E8">${readinformationdashboard.description}</div>
 
 </div>
 
