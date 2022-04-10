@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboardService;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class InformationDashboardController {
@@ -31,7 +32,7 @@ public class InformationDashboardController {
     }
 
     @RequestMapping("/zapiszaktualnosc")
-    public String saveInformationDashboard(@ModelAttribute("newProdukt") InformationDashboard informationdashboard, RedirectAttributes redirAttrs){
+    public String saveInformationDashboard(@ModelAttribute("informationdashboard") InformationDashboard informationdashboard, RedirectAttributes redirAttrs){
 
             informationdashboard.setIsactive(true);
             informationdashboard.setDate(LocalDate.now());
@@ -50,8 +51,64 @@ public class InformationDashboardController {
     @RequestMapping("/edytujaktualnosc/{id}")
     public String editnformationDashboard(@PathVariable(name = "id") Long id, Model model) {
 
-        model.addAttribute("readinformationdashboard",informationdashboardservice.get(id));
-        return "readinformationdashboard";
+        model.addAttribute("editinformationdashboard",informationdashboardservice.get(id));
+        return "editinformationdashboard";
     }
+    @RequestMapping("/zaktualizujaktualnosc/{id}")
+    public String saveEditedItnformationDashboard(@ModelAttribute("editinformationdashboard") InformationDashboard informationdashboard,@PathVariable(name = "id") Long id) {
+
+        informationdashboard.setId(id);
+        informationdashboard.setIsactive(true);
+        try {
+            informationdashboardservice.save(informationdashboard);
+
+        }
+        catch (Exception e )
+        {
+
+        }
+
+        return "redirect:/";
+    }
+
+    @RequestMapping("/archiwizuj/{id}")
+    public String archiveInformationDashboard(@PathVariable(name = "id") Long id) {
+
+      InformationDashboard informationDashboard = informationdashboardservice.get(id);
+       informationDashboard.setIsactive(false);
+        try {
+            informationdashboardservice.save(informationDashboard);
+
+        }
+        catch (Exception e )
+        {
+
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping("/archiwalneaktualnosci")
+    public String archivalInformationDashboard(Model model) {
+        List<InformationDashboard> informationdashboardlist = informationdashboardservice.findByIsActive(false);
+
+        model.addAttribute("informationdashboardlist",informationdashboardlist);
+        return "index";
+    }
+    @RequestMapping("/przywrocaktualnosc/{id}")
+    public String restoreInformationDashboard(@PathVariable(name = "id") Long id) {
+
+        InformationDashboard informationDashboard = informationdashboardservice.get(id);
+        informationDashboard.setIsactive(true);
+        try {
+            informationdashboardservice.save(informationDashboard);
+
+        }
+        catch (Exception e )
+        {
+
+        }
+        return "redirect:/archiwalneaktualnosci";
+    }
+
 
 }

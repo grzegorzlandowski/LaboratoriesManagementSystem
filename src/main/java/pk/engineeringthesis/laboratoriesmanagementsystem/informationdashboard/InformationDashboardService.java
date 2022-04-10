@@ -2,6 +2,8 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,11 @@ public class InformationDashboardService {
     public List<InformationDashboard> listAllSortByDateDesc(){
         return repo.findAll((Sort.by(Sort.Direction.DESC, "date")));
     }
+    public List<InformationDashboard> findByIsActive(Boolean isactive)
+    {
+        return repo.findByIsActive(isactive);
 
+    }
     public InformationDashboard get(Long id) {
         return repo.findById(id).get();
     }

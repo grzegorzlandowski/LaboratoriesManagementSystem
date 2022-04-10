@@ -16,7 +16,8 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        List<InformationDashboard> informationdashboardlist = informationdashboardservice.listAllSortByDateDesc();
+        List<InformationDashboard> informationdashboardlist = informationdashboardservice.findByIsActive(true);
+
         model.addAttribute("informationdashboardlist",informationdashboardlist);
         return "index";
     }
