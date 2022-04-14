@@ -1,6 +1,6 @@
 .bodycontainer{
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 25%;
+    margin-right: 25%;
 
     box-shadow:0 0 0.3em #0D005F;
 }
@@ -10,11 +10,18 @@
     font-weight:bold;
     color:#FFE8E8;
 }
+#usercheck{
+    margin-top: 10px;
 
-#summernote{
-
-    border-style: dotted;
-
+}
+#passcheck{
+    margin-top: 10px;
+}
+#conpasscheck{
+    margin-top: 10px;
+}
+#emailcheck{
+    margin-top: 10px;
 }
 @media (max-width: 575.98px) {
     .bodycontainer{

@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboardService;
+import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -13,17 +16,15 @@ public class IndexController {
 
     @Autowired
     private InformationDashboardService informationdashboardservice;
+    @Autowired
+    private UserDetailsServiceImpl userservice;
 
     @RequestMapping("/")
     public String index(Model model) {
         List<InformationDashboard> informationdashboardlist = informationdashboardservice.findByIsActive(true);
-
         model.addAttribute("informationdashboardlist",informationdashboardlist);
         return "index";
     }
-    @RequestMapping("register")
-    public String register() {
-        return "register";
-    }
+
 
 }

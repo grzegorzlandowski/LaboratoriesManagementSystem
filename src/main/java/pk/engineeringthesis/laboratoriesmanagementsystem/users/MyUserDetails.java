@@ -49,7 +49,11 @@ public class MyUserDetails implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        if (user.getStatus().equals("Zaakceptowane") && user.isEnabled() == true) {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
-
 }

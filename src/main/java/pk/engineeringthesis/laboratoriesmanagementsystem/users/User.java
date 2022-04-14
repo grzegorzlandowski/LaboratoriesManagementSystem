@@ -19,6 +19,14 @@ public class User {
     private String password;
     private String role;
     private boolean enabled;
+    private String status;
+    private String firstname;
+    private String surname;
+    private String email;
+    private String telephone;
+    private String faculty;
+    private String cathedral;
+
 
     public Long getId() {
         return id;
@@ -40,6 +48,34 @@ public class User {
         return enabled;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public String getCathedral() {
+        return cathedral;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -58,5 +94,33 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public void setCathedral(String cathedral) {
+        this.cathedral = cathedral;
     }
 }
