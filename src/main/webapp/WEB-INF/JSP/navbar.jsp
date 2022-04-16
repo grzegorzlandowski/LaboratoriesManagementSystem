@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/../js/getcountusertoactivate.js"></script>
 <nav class="navbar navbar-expand-lg navbar-dark ">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"> <img id="logopkwhite" src="/gfx/logopkwhite.png" alt="" width="160" height="45" class="d-inline-block align-text-top"></a> <a class="navbar-brand" href="/">System Zarządzania Laboratoriami Wydziałowymi</a>
@@ -11,11 +12,18 @@
                 <li class="nav-item">
                     <a class="nav-link "  href="/">Aktualności</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Użytkownicy
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" id="doakceptacji" href="/potwierdzuzytkownika"></a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Do Akceptacji(<c:out value="${username}"></c:out>)</a>
+                    <a class="nav-link" href="#">xxxxxx</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
