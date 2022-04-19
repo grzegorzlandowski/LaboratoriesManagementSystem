@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/../js/getcountusertoactivate.js"></script>
@@ -8,6 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<sec:authorize access="hasAnyRole('ROLE_USER')">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link "  href="/">Aktualności</a>
@@ -42,6 +44,7 @@
                     <a class="nav-link" onclick="document.forms['logoutForm'].submit()">Wyloguj</a>
                 </li>
             </ul>
+    </sec:authorize>
         </div>
     </div>
 </nav>

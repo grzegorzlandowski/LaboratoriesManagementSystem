@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pk.engineeringthesis.laboratoriesmanagementsystem.config.MailService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.config.PasswordEncryption;
+import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
+import pk.engineeringthesis.laboratoriesmanagementsystem.notification.NotificationService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 public class UserController {
@@ -24,6 +28,8 @@ public class UserController {
     private UserDetailsServiceImpl userservice;
     @Autowired
     private PasswordEncryption encryptpassword;
+    @Autowired
+    private NotificationService notificationService;
 
     @RequestMapping("/rejestracja")
     public String register(Model model){
@@ -62,6 +68,13 @@ public class UserController {
                             "Twoje konto zostało założone, zanim będziesz mógł z niego korzystać poczekaj na zakcepotwanie przez administratora." +
                             "O aktywowaniu swojego konta zostaniesz również powiadomiony mailowo.",true);
 
+            User admin= userservice.getUserByUsername("namhm");
+            Notification notification=new Notification();
+            notification.setUser(admin);
+            notification.setDate(LocalDateTime.now());
+            notification.setMessage("Użytkownik "+user.getUsername()+" zarejestrował się. Potwierdź użytkownika.");
+            notification.setRead(false);
+            notificationService.save(notification);
             return "registerconfirm";
         }
     }

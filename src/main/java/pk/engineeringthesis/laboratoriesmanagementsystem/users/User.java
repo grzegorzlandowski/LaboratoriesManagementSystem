@@ -1,11 +1,11 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Column;
+import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -26,6 +26,9 @@ public class User {
     private String telephone;
     private String faculty;
     private String cathedral;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Notification>  notification=new HashSet<Notification>();
 
 
     public Long getId() {

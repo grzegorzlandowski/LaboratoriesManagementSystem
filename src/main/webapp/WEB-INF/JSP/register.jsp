@@ -1,20 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="utf-8" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
+    <title>Title</title>
     <meta charset="uft-8" />
     <title>Rejestracja Użytkownika</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-     <link rel="stylesheet" href="/../css/navbar.css">
+    <link rel="stylesheet" href="/../css/navbar.css">
     <link rel="stylesheet" href="/../css/body.css">
     <link rel="stylesheet" href="/../css/footer.css">
     <link rel="stylesheet" href="/../css/registration.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script type="text/javascript" src="/../js/registrationValidate.js"></script>
 </head>
+<body>
+
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
@@ -29,7 +33,7 @@
                 </div>
                 <c:if test="${wrongusername != null}" >
                     <div id="usercheck" class="alert alert-danger alert-dismissible fade show" role="alert">
-                        ${wrongusername}
+                            ${wrongusername}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </c:if>

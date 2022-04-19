@@ -36,7 +36,7 @@
             </div>
         </c:if>
         <div class="d-flex justify-content-center"><button class="btn btn-primary" type="submit">Zaloguj</button></div>
-        <div class="d-flex justify-content-center"><a href="/register" class="btn btn-secondary" id="registerbutton">Nie masz Jeszcze konta? Zarejestruj się!</a></div>
+        <div class="d-flex justify-content-center"><a href="/rejestracja" class="btn btn-secondary" id="registerbutton">Nie masz Jeszcze konta? Zarejestruj się!</a></div>
 
 
     </form:form>
