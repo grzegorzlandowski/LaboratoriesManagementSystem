@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,5 +57,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public List<User> listAll(){
+        return userRepository.findAll();
+    }
+    public List<User> findEmployeeAndSupervisor(){
+        return userRepository.findEmployeeAndSupervisor();
+    }
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 }

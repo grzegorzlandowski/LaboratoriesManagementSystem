@@ -18,9 +18,17 @@
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
-    <h1 class="text-center" style="color: #FFE8E8">Panel Rejestracji</h1>
+
+    <c:if test="${status == 'OK'}" >
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            Użytkownik dodany prawidłowo!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </c:if>
+    <h1 class="text-center" style="color: #FFE8E8">Stwórz nowego użytkownika</h1>
     <div class="bodycontainer" class="container rounded">
-        <form:form id="form1" name="form1" modelAttribute="newuser" method="POST" action="/rejestracja/zapiszuzytkownika" class="rounded p-4 p-sm-3">
+        <form:form id="form1" name="form1" modelAttribute="newuser" method="POST" action="/nowyuzytkownik/zapiszuzytkownika" class="rounded p-4 p-sm-3">
 
             <div class="mb-3">
                 <label class="form-label">Nazwa Użytkownika</label>
@@ -47,6 +55,20 @@
                 </div>
             </div>
             <p id="validate-status" style="color: white"></p>
+            <div class="mb-3">
+                <label class="form-label">Rola</label>
+            <form:select required="required" path="role" class="form-control">
+                <form:option value="ROLE_EMPLOYEE">Pracownik</form:option>
+                <form:option value="ROLE_SUPERVISOR">Opiekun Sali</form:option>
+            </form:select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Czy Aktywne</label>
+            <form:select required="required" path="enabled" class="form-control">
+                <form:option value="true">Aktywne</form:option>
+                <form:option value="false"> Zablokowane</form:option>
+            </form:select>
+            </div>
             <div class="mb-3">
                 <label class="form-label">Imię</label>
                 <form:input required="required" class="form-control" path="firstname"/>

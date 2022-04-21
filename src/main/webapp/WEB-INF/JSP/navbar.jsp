@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/../js/getcountusertoactivate.js"></script>
+
 <nav class="navbar navbar-expand-lg navbar-dark ">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"> <img id="logopkwhite" src="/gfx/logopkwhite.png" alt="" width="160" height="45" class="d-inline-block align-text-top"></a> <a class="navbar-brand" href="/">System Zarządzania Laboratoriami Wydziałowymi</a>
@@ -9,19 +10,26 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-<sec:authorize access="hasAnyRole('ROLE_USER')">
+<sec:authorize access="isAuthenticated()">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link "  href="/">Aktualności</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ogłoszenia
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/dodajaktualnosc">Nowe ogłoszenie</a></li>
+                        <li><a class="dropdown-item"  href="/archiwalneaktualnosci">Archiwalne</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Użytkownicy
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="/zarzadzanieuzytkownikami/lista">Zarządzanie</a></li>
                         <li><a class="dropdown-item" id="doakceptacji" href="/potwierdzuzytkownika"></a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="/nowyuzytkownik">Nowy użytkownik</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -29,12 +37,11 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown link
+                        Konto
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="/edytujmojekonto">Edytuj dane konta</a></li>
+                        <li><a class="dropdown-item" href="/edytujmojehaslo">Edytuj Hasło</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -43,9 +50,9 @@
                     </form>
                     <a class="nav-link" onclick="document.forms['logoutForm'].submit()">Wyloguj</a>
                 </li>
+
             </ul>
-    </sec:authorize>
+            </sec:authorize>
         </div>
     </div>
 </nav>
-

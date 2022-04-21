@@ -7,7 +7,8 @@ window.onload =  function getCount() {
             ("Do akceptacji ("+data+")");
         },
         error : function()  {
-            alert("Podczas dodawania zdjęcia wystąpił problem.");
+
         }
     });
 }
+

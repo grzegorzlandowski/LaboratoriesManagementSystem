@@ -1,5 +1,6 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 
+import org.hibernate.annotations.Where;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
 
 import javax.persistence.*;

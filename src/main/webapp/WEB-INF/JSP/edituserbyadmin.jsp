@@ -13,40 +13,34 @@
     <link rel="stylesheet" href="/../css/footer.css">
     <link rel="stylesheet" href="/../css/registration.css">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="/../js/registrationValidate.js"></script>
+    <script type="text/javascript" src="/../js/emailValidator.js"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
-    <h1 class="text-center" style="color: #FFE8E8">Panel Rejestracji</h1>
-    <div class="bodycontainer" class="container rounded">
-        <form:form id="form1" name="form1" modelAttribute="newuser" method="POST" action="/rejestracja/zapiszuzytkownika" class="rounded p-4 p-sm-3">
 
+    <h1 class="text-center" style="color: #FFE8E8">Edycja Użytkownika ${edituser.username}</h1>
+    <div class="bodycontainer" class="container rounded">
+        <form:form id="form1" name="form1" modelAttribute="edituser" method="POST" action="/edytujuzytkownika/zapiszuzytkownika" class="rounded p-4 p-sm-3">
+            <form:input required="required" type="hidden" id="usernames" class="form-control" path="id"/>
             <div class="mb-3">
                 <label class="form-label">Nazwa Użytkownika</label>
-                <form:input required="required" id="usernames" class="form-control" path="username"/>
-                <div class="alert alert-danger" id="usercheck" role="alert">
-                </div>
-                <c:if test="${wrongusername != null}" >
-                    <div id="usercheck" class="alert alert-danger alert-dismissible fade show" role="alert">
-                            ${wrongusername}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </c:if>
+                <form:input required="required" readonly="true" class="form-control" path="username"/>
             </div>
             <div class="mb-3">
-                <label class="form-label">Hasło</label>
-                <form:input required="required" id="password1" type="password" class="form-control" path="password"/>
-                <div class="alert alert-danger" id="passcheck" role="alert">
-                </div>
+                <label class="form-label">Rola</label>
+                <form:select required="required" path="role" class="form-control">
+                    <form:option value="ROLE_EMPLOYEE">Pracownik</form:option>
+                    <form:option value="ROLE_SUPERVISOR">Opiekun Sali</form:option>
+                </form:select>
             </div>
             <div class="mb-3">
-                <label class="form-label">Potwierdź Hasło</label>
-                <input required="required" id="password2" type="password" class="form-control" />
-                <div class="alert alert-danger" id="conpasscheck" role="alert">
-                </div>
+                <label class="form-label">Czy Aktywne</label>
+                <form:select required="required" path="enabled" class="form-control">
+                    <form:option value="true">Aktywne</form:option>
+                    <form:option value="false"> Zablokowane</form:option>
+                </form:select>
             </div>
-            <p id="validate-status" style="color: white"></p>
             <div class="mb-3">
                 <label class="form-label">Imię</label>
                 <form:input required="required" class="form-control" path="firstname"/>
@@ -80,7 +74,7 @@
                 <form:input required="required" class="form-control" path="cathedral"/>
             </div>
             <p id="validate-status" style="color:white"></p>
-            <div class="d-flex justify-content-center"><button id="submitbtn" class="btn btn-primary" type="submit">Zarejestruj</button></div>
+            <div class="d-flex justify-content-center"><button id="submitbtn" class="btn btn-primary" type="submit">Zapisz Użytkownika</button></div>
         </form:form>
     </div>
 

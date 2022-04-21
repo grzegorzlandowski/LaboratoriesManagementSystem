@@ -9,13 +9,15 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.username = :username")
-    public User getUserByUsername(@Param("username") String username);
+     User getUserByUsername(@Param("username") String username);
     @Query("SELECT u FROM User u WHERE u.email = :email")
-    public User getUserByEmail(@Param("email") String email);
+    User getUserByEmail(@Param("email") String email);
     @Query("SELECT u FROM User u WHERE u.status = :status")
-    public List<User> getUserByStatus(@Param("status") String status);
+     List<User> getUserByStatus(@Param("status") String status);
     @Query("SELECT u FROM User u WHERE u.id = :id")
-    public User getUserById(@Param("id")Long id);
+     User getUserById(@Param("id")Long id);
     @Query("select count(u.id) FROM User u WHERE u.status= :status")
-    public int userCountByStatus(@Param("status") String status);
+    int userCountByStatus(@Param("status") String status);
+    @Query("SELECT u from User u where u.status='Zaakceptowane' AND u.role ='ROLE_EMPLOYEE' OR u.role ='ROLE_SUPERVISOR'")
+    List<User> findEmployeeAndSupervisor();
 }

@@ -1,0 +1,14 @@
+
+.card-1 {
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    background-color: #2C3E70;
+
+}
+th,td{
+    color:#FFE8E8;;
+}
+table{
+    margin-top: 20px;
+}

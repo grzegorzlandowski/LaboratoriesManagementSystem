@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="/../css/navbar.css">
     <link rel="stylesheet" href="/../css/body.css">
     <link rel="stylesheet" href="/../css/footer.css">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/../js/confirmbox.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
