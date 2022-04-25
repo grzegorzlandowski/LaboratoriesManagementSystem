@@ -1,11 +1,13 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.notification;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Notification {
@@ -16,6 +18,7 @@ public class Notification {
     private String message;
     private LocalDateTime date;
     private Boolean isRead;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -48,8 +51,11 @@ public class Notification {
         return message;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public String getDate() {
+
+        DateTimeFormatter FOMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        return FOMATTER.format(this.date);
     }
 
     public Boolean getRead() {
