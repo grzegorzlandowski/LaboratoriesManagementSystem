@@ -1,6 +1,7 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 
 import org.hibernate.annotations.Where;
+import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
 
 import javax.persistence.*;
@@ -30,6 +31,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<Notification>  notification=new HashSet<Notification>();
+    @OneToMany(mappedBy = "supervisorId", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Laboratory>  laboratory=new HashSet<Laboratory>();
 
 
     public Long getId() {
