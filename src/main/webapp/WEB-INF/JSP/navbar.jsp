@@ -34,6 +34,15 @@
                         <li><a class="dropdown-item" href="/nowyuzytkownik">Nowy użytkownik</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sale laboratoryjne
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/dodajlaboratorium">Dodaj nowe laboratorium</a></li>
+                        <li><a class="dropdown-item" href="/listalaboratoriow">Lista Laboratoriów</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" >xxxxx</a>
                 </li>

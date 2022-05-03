@@ -17,56 +17,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-    <c:if test="${succes== 'OK'}">
-        <script>
-            $(document).ready(function (){
-                swal({
-                    text: "Operacja zakończyła się powodzeniem",
-                    timer: 1000,
-                });
-            });
-        </script>
-    </c:if>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
-    <c:if test="${notificationslist == []}" >
+    <c:if test="${laboratoryList == []}" >
         <div class="alert alert-warning" role="alert">
-            Brak Powiadomień.
+            Brak sal laboratoryjnych
         </div>
     </c:if>
-    <button onclick="window.location='/pokazpowiadomienia'" id="archivebutton" type="button" class="btn btn-success">
-        <i class="bi bi-archive"></i> Aktualne
-
-
-    </button>
-    <c:if test="${archivalnotificationslist != []}" >
+    <c:if test="${laboratoryList != []}" >
         <table class="table table-borderless table-responsive card-1 p-4">
             <thead><tr class="border-bottom">
-                <th colspan="3"><center><h1 style="color:#FFE8E8;">Archiwalne Powiadomienia</h1></center></th>
+                <th colspan="5"><center><h1 style="color:#FFE8E8;">Lista Laboratoriów</h1></center></th>
 
             </tr></thead>
             <thead>
             <tr class="border-bottom">
-                <th>Powiadomienie</th>
-                <th>Data</th>
-
+                <th> Nazwa</th>
+                <th>Powierzchnia</th>
+                <th>Ilość miejsc</th>
+                <th>Opiekun</th>
+                <sec:authorize access="hasRole('ROLE_ADMIN')"> <th>Zarządzanie</th> </sec:authorize>
 
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="Notification" items="${archivalnotificationslist}">
-                <tr onclick="window.location='/powiadoemienie/oznaczjakonieprzeczytane/${Notification.id}'" title="Kliknij aby przywrócić powiadomienie" style="cursor: pointer;" class="border-top">
-                    <td  >
-                            ${Notification.message}
+            <c:forEach var="Laboratory" items="${laboratoryList}">
+                <tr class="border-top">
+                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
+                            ${Laboratory.name}
+                    </td>
+                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
+                            ${Laboratory.area} &#13217
+
+                    </td>
+                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
+                            ${Laboratory.seats}
+
                     </td>
 
-                    <td style="cursor: pointer;">
-                            ${Notification.date}
+                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
+                        <c:if test="${Laboratory.supervisorId!=null}" >${Laboratory.supervisorId.username}</c:if>
+                        <c:if test="${Laboratory.supervisorId==null}" >Brak Opiekuna</c:if>
                     </td>
-
-
+                    <td >
+                   Zarządzanie
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

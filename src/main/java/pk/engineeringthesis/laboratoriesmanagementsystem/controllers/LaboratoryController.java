@@ -7,9 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
+
+import java.util.List;
 
 @Controller
 public class LaboratoryController {
@@ -41,5 +44,13 @@ public class LaboratoryController {
 
         return "redirect:/dodajlaboratorium";
     }
+
+    @RequestMapping("/listalaboratoriow")
+    public String index(Model model) {
+        List<Laboratory> laboratoryList = laboratoryService.listAll();
+        model.addAttribute("laboratoryList",laboratoryList);
+        return "laboratoryList";
+    }
+
 
 }

@@ -57,12 +57,12 @@
                 <form:textarea id="summernote" path="description"/>
             </div>
             <div class="mb-3">
-                <label class="form-label">Powierzchnia(w m2)</label>
-                <form:input required="required" class="form-control" path="area"/>
+                <label  class="form-label">Powierzchnia(w m2)</label>
+                <form:input type="number" step="0.1" required="required" class="form-control" path="area"/>
             </div>
             <div class="mb-3">
                 <label class="form-label">Ilość miejsc</label>
-                <form:input required="required" class="form-control" path="seats"/>
+                <form:input  type="number" required="required" class="form-control" path="seats"/>
             </div>
             <div class="mb-3">
                 <label class="form-label">Opiekun</label>

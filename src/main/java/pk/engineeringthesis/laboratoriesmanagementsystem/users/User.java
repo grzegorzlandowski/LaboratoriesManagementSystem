@@ -3,6 +3,8 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 import org.hibernate.annotations.Where;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
+import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportMessages;
+import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -34,6 +36,12 @@ public class User {
     @OneToMany(mappedBy = "supervisorId", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<Laboratory>  laboratory=new HashSet<Laboratory>();
+    @OneToMany(mappedBy = "supervisor")
+    private Set<ReportSystem> supervisorReport = new HashSet<>();
+    @OneToMany(mappedBy = "applicant")
+    private Set<ReportSystem> applicantReport = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<ReportMessages> reportMessage = new HashSet<>();
 
 
     public Long getId() {

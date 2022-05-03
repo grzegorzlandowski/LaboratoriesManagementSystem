@@ -1,8 +1,11 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.laboratory;
 
+import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Laboratory {
@@ -18,6 +21,8 @@ public class Laboratory {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "supervisor_id", nullable = true)
     private User supervisorId;
+    @OneToMany(mappedBy = "laboratory")
+    private Set<ReportSystem> Report = new HashSet<>();
 
     public long getId() {
         return id;
