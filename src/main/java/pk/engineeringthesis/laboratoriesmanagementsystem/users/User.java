@@ -36,11 +36,11 @@ public class User {
     @OneToMany(mappedBy = "supervisorId", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<Laboratory>  laboratory=new HashSet<Laboratory>();
-    @OneToMany(mappedBy = "supervisor")
+    @OneToMany(mappedBy = "supervisor",fetch = FetchType.LAZY)
     private Set<ReportSystem> supervisorReport = new HashSet<>();
-    @OneToMany(mappedBy = "applicant")
+    @OneToMany(mappedBy = "applicant",fetch = FetchType.LAZY)
     private Set<ReportSystem> applicantReport = new HashSet<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private Set<ReportMessages> reportMessage = new HashSet<>();
 
 

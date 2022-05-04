@@ -21,48 +21,46 @@
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
-    <c:if test="${laboratoryList == []}" >
+    <c:if test="${reportSystemList == []}" >
         <div class="alert alert-warning" role="alert">
-            Brak sal laboratoryjnych
+            Brak zgłoszeń
         </div>
     </c:if>
-    <c:if test="${laboratoryList != []}" >
+    <c:if test="${reportSystemList != []}" >
         <table class="table table-borderless table-responsive card-1 p-4">
             <thead><tr class="border-bottom">
-                <th colspan="5"><center><h1 style="color:#FFE8E8;">Lista Laboratoriów</h1></center></th>
+                <th colspan="5"><center><h1 style="color:#FFE8E8;">Lista Zgłoszeń Sal Opiekuna</h1></center></th>
 
             </tr></thead>
             <thead>
             <tr class="border-bottom">
-                <th> Nazwa</th>
-                <th>Powierzchnia</th>
-                <th>Ilość miejsc</th>
-                <th>Opiekun</th>
-                <sec:authorize access="hasRole('ROLE_ADMIN')"> <th>Zarządzanie</th> </sec:authorize>
-
+                <th> Tytuł</th>
+                <th>Typ zgłoszenia</th>
+                <th>Sala</th>
+                <th>Status</th>
+                <th>Data</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="Laboratory" items="${laboratoryList}">
+            <c:forEach var="ReportSystem" items="${reportSystemList}">
                 <tr class="border-top">
-                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
-                            ${Laboratory.name}
+                    <td style="cursor: pointer;" onclick="window.location='/zgloszenie/${ReportSystem.id}'">
+                            ${ReportSystem.title}
                     </td>
-                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
-                            ${Laboratory.area} &#13217
+                    <td style="cursor: pointer;" onclick="window.location='/zgloszenie/${ReportSystem.id}'">
+                        <c:if test="${ReportSystem.type=='fault'}" >Awaria</c:if>
+                        <c:if test="${ReportSystem.type=='request'}" >Zapotrzebowanie</c:if>
 
                     </td>
-                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
-                            ${Laboratory.seats}
-
+                    <td style="cursor: pointer;" onclick="window.location='/zgloszenie/${ReportSystem.id}'">
+                            ${ReportSystem.laboratory.name}
+                    </td>
+                    <td style="cursor: pointer;" onclick="window.location='/zgloszenie/${ReportSystem.id}'">
+                            ${ReportSystem.status}
                     </td>
 
-                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
-                        <c:if test="${Laboratory.supervisorId!=null}" >${Laboratory.supervisorId.username}</c:if>
-                        <c:if test="${Laboratory.supervisorId==null}" >Brak Opiekuna</c:if>
-                    </td>
-                    <td >
-                 <a href="/nowezgloszenie/${Laboratory.id}">Zgłoszenie awarii</a>
+                    <td style="cursor: pointer;" onclick="window.location='/zgloszenie/${ReportSystem.id}'">
+                            ${ReportSystem.date}
                     </td>
                 </tr>
             </c:forEach>

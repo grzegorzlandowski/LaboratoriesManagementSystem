@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
 
 
 import java.util.List;
@@ -21,6 +22,10 @@ public class LaboratoryService {
     public List<Laboratory> listAll(){
         return repo.findAll(Sort.by(Sort.Direction.ASC, "name"));
 
+    }
+
+    public Laboratory get(Long id) {
+        return repo.findById(id).get();
     }
 
 

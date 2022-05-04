@@ -30,7 +30,7 @@ public class LaboratoryController {
     }
 
     @RequestMapping("/zapiszlaboratorium")
-    public String saveInformationDashboard(@ModelAttribute("laboratory") Laboratory laboratory, RedirectAttributes redirAttrs){
+    public String saveLaboratory(@ModelAttribute("laboratory") Laboratory laboratory, RedirectAttributes redirAttrs){
 
 
         try {
@@ -46,7 +46,7 @@ public class LaboratoryController {
     }
 
     @RequestMapping("/listalaboratoriow")
-    public String index(Model model) {
+    public String laboratoryList(Model model) {
         List<Laboratory> laboratoryList = laboratoryService.listAll();
         model.addAttribute("laboratoryList",laboratoryList);
         return "laboratoryList";

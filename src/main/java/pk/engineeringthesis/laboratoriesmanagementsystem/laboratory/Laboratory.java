@@ -21,7 +21,7 @@ public class Laboratory {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "supervisor_id", nullable = true)
     private User supervisorId;
-    @OneToMany(mappedBy = "laboratory")
+    @OneToMany(mappedBy = "laboratory",fetch = FetchType.LAZY)
     private Set<ReportSystem> Report = new HashSet<>();
 
     public long getId() {

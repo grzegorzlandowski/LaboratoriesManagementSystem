@@ -24,3 +24,19 @@ body{
     margin-bottom: 15px;
 
 }
+.bodycontainer{
+    margin-left: 5px;
+    padding-left: 10px;
+    margin-right: 5%;
+
+    box-shadow:0 0 0.3em #0D005F;
+}
+#addmessage{
+
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    padding: 10px;
+
+
+}

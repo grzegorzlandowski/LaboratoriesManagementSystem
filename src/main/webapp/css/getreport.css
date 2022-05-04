@@ -1,0 +1,21 @@
+.reportmessage,.text-end{
+
+    color:#FFE8E8;
+}
+.reportmessage{
+    font-size: 20px;
+}
+.text-end{
+ margin-right: 1%;
+}
+
+.messagecontainer{
+    margin-left: 5px;
+    padding-left: 10px;
+    margin-right: 5%;
+    padding-bottom: 5px;
+
+    box-shadow:0 0 0.3em #0D005F;
+
+}
+

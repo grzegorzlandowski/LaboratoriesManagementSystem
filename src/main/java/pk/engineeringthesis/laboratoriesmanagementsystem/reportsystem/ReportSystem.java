@@ -1,10 +1,12 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem;
 
+import org.hibernate.annotations.GenericGenerator;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,16 +22,16 @@ public class ReportSystem {
     private String description;
     private String status;
     private LocalDateTime date;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "laboratory_id")
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "laboratory_id",unique = false)
     private Laboratory laboratory;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "supervisor_id")
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "supervisor_id",unique = false)
     private User supervisor;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "applicant_id")
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "applicant_id",unique = false)
     private User applicant;
-    @OneToMany(mappedBy = "report")
+    @OneToMany(mappedBy = "report",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<ReportMessages> reportMessage = new HashSet<>();
 
     public long getId() {
@@ -52,8 +54,10 @@ public class ReportSystem {
         return status;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public String getDate() {
+        DateTimeFormatter FOMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        return FOMATTER.format(this.date);
     }
 
     public Laboratory getLaboratory() {
