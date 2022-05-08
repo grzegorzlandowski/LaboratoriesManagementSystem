@@ -10,8 +10,12 @@ import java.util.List;
 
 public interface ReportSystemRepository  extends JpaRepository<ReportSystem, Long> {
 
-    @Query("SELECT r FROM ReportSystem r WHERE r.applicant =:User Order BY r.date DESC")
-    List<ReportSystem> getUserReports(@Param("User") User users);
-    @Query("SELECT r FROM ReportSystem r WHERE r.supervisor =:User Order BY r.date DESC")
-    List<ReportSystem> getSupervisorReports(@Param("User") User users);
+    @Query("SELECT r FROM ReportSystem r WHERE r.applicant =:User AND r.status <> 'Archiwalne'  Order BY r.date DESC")
+    List<ReportSystem> getUserActiveReports(@Param("User") User users);
+    @Query("SELECT r FROM ReportSystem r WHERE r.supervisor =:User AND r.status <> 'Archiwalne' Order BY r.date DESC")
+    List<ReportSystem> getSupervisorActiveReports(@Param("User") User users);
+    @Query("SELECT r FROM ReportSystem r WHERE r.applicant =:User AND r.status='Archiwalne'  Order BY r.date DESC")
+    List<ReportSystem> getUserArchivalReports(@Param("User") User users);
+    @Query("SELECT r FROM ReportSystem r WHERE r.supervisor =:User AND r.status='Archiwalne' Order BY r.date DESC")
+    List<ReportSystem> getSupervisorArchivalReports(@Param("User") User users);
 }

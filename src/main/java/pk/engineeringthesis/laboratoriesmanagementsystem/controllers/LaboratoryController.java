@@ -25,7 +25,7 @@ public class LaboratoryController {
     @RequestMapping("/dodajlaboratorium")
     public String addLaboratory(Model model){
         model.addAttribute("laboratory",new Laboratory());
-        model.addAttribute("users",userservice.listAll());
+        model.addAttribute("users",userservice.findSupervisor());
         return "addlaboratory";
     }
 

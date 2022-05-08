@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int userCountByStatus(@Param("status") String status);
     @Query("SELECT u from User u where u.status='Zaakceptowane' AND u.role ='ROLE_EMPLOYEE' OR u.role ='ROLE_SUPERVISOR'")
     List<User> findEmployeeAndSupervisor();
+    @Query("SELECT u from User u where u.status='Zaakceptowane' AND u.role ='ROLE_SUPERVISOR'")
+    List<User> findSupervisor();
 }

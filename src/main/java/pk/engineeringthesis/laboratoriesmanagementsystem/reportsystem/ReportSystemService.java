@@ -27,17 +27,25 @@ public class ReportSystemService {
 
     }
 
-    public List<ReportSystem> getUserReports(User users){
+    public List<ReportSystem> getUserActiveReports(User users){
 
-        return repo.getUserReports(users);
+        return repo.getUserActiveReports(users);
     }
 
     public ReportSystem get(Long id) {
         return repo.findById(id).get();
     }
 
-    public List<ReportSystem> getSupervisorReports(User users){
+    public List<ReportSystem> getSupervisorActiveReports(User users){
 
-        return repo.getSupervisorReports(users);
+        return repo.getSupervisorActiveReports(users);
+    }
+    public List<ReportSystem> getSupervisorArchivalReports(User users){
+
+        return repo.getSupervisorArchivalReports(users);
+    }
+    public List<ReportSystem> getUserArchivalReports(User users){
+
+        return repo.getUserArchivalReports(users);
     }
 }

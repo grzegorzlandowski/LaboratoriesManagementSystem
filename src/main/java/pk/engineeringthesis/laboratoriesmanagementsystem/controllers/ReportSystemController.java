@@ -1,12 +1,14 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
@@ -80,7 +82,7 @@ public class ReportSystemController {
         Principal principal = request.getUserPrincipal();
         User user =userservice.getUserByUsername(principal.getName());
 
-        model.addAttribute("reportSystemList",reportSystemService.getUserReports(user));
+        model.addAttribute("reportSystemList",reportSystemService.getUserActiveReports(user));
         return "myreportlist";
     }
 
@@ -137,8 +139,52 @@ public class ReportSystemController {
         Principal principal = request.getUserPrincipal();
         User user =userservice.getUserByUsername(principal.getName());
 
-        model.addAttribute("reportSystemList",reportSystemService.getSupervisorReports(user));
+        model.addAttribute("reportSystemList",reportSystemService.getSupervisorActiveReports(user));
         return "supervisorreportlist";
+    }
+
+    @RequestMapping("/zgloszenie/{id}/zmienstatus")
+    public String changeStatus(Model model,@PathVariable(name = "id") Long id){
+
+        model.addAttribute("report",reportSystemService.get(id));
+        model.addAttribute("reportid",id);
+        return "changestatus";
+    }
+
+    @RequestMapping("/zmienstatuszgloszenia/{id}")
+    public String saveChangeStatus(@ModelAttribute("report") ReportSystem reportSystem, @PathVariable(name = "id") Long id, RedirectAttributes redirAttrs){
+
+        ReportSystem report = reportSystemService.get(id);
+        report.setStatus(reportSystem.getStatus());
+        reportSystemService.save(report);
+        Notification notification=new Notification();
+        notification.setRead(false);
+        notification.setUser(report.getApplicant());
+        notification.setDate(LocalDateTime.now());
+        notification.setMessage("Dla zgłoszenia o ID "+ report.getId()+ " Zmieniono status na " + reportSystem.getStatus());
+        redirAttrs.addFlashAttribute("succes", "OK");
+        notificationService.save(notification);
+        return "redirect:/zgloszenie/"+id;
+    }
+
+    @RequestMapping("opiekun/mojezgloszenia/archiwalne")
+    public String supervisorArchivalReportList(Model model,HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+        User user =userservice.getUserByUsername(principal.getName());
+
+        model.addAttribute("reportSystemList",reportSystemService.getSupervisorArchivalReports(user));
+        return "supervisorreportarchivallist";
+    }
+
+    @RequestMapping("/mojezgloszenia/archiwalne")
+    public String ReportArchivalList(Model model,HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+        User user =userservice.getUserByUsername(principal.getName());
+
+        model.addAttribute("reportSystemList",reportSystemService.getUserArchivalReports(user));
+        return "myreportarchivallist";
     }
 
 }

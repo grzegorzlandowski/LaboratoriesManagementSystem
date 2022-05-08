@@ -17,7 +17,7 @@
         </symbol>
     </svg>
     <meta charset="uft-8" />
-    <title>Dodawanie Aktualności</title>
+    <title>Dodaj nowe zgłoszenie</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -33,20 +33,6 @@
 
     <div class="bodycontainer" class="container rounded">
 
-        <c:if test="${status == 'OK'}" >
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                Laboratorium zostało dodane poprawnie.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
-        <c:if test="${status == 'NOK'}" >
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                Podczas dodawania laboratorium wystąpił problem.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
         <form:form id="form1" name="form1" modelAttribute="reportsystem" method="POST" action="/zapiszzgloszenie/${laboratoryid}" class="rounded p-4 p-sm-3">
             <div class="mb-3">
                 <label class="form-label">Tytuł zgłoszenia</label>

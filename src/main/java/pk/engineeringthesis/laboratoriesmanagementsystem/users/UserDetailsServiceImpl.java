@@ -65,6 +65,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public List<User> findEmployeeAndSupervisor(){
         return userRepository.findEmployeeAndSupervisor();
     }
+    public List<User> findSupervisor(){
+        return userRepository.findSupervisor();
+    }
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
