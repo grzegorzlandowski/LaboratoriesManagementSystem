@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
+import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
 
 import java.util.List;
@@ -50,6 +52,14 @@ public class LaboratoryController {
         List<Laboratory> laboratoryList = laboratoryService.listAll();
         model.addAttribute("laboratoryList",laboratoryList);
         return "laboratoryList";
+    }
+
+    @RequestMapping("/laboratorium/{id}")
+    public String getReport(Model model,@PathVariable(name = "id") Long id) {
+
+        Laboratory laboratory = laboratoryService.get(id);
+        model.addAttribute("laboratory",laboratory);
+        return "getlaboratory";
     }
 
 

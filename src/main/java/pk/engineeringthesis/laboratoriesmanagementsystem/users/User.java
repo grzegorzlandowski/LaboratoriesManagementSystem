@@ -1,15 +1,17 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Where;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportMessages;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
+import pk.engineeringthesis.laboratoriesmanagementsystem.timetable.Timetable;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -33,15 +35,17 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<Notification>  notification=new HashSet<Notification>();
-    @OneToMany(mappedBy = "supervisorId", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "supervisorId", fetch = FetchType.LAZY)
     private Set<Laboratory>  laboratory=new HashSet<Laboratory>();
     @OneToMany(mappedBy = "supervisor",fetch = FetchType.LAZY)
     private Set<ReportSystem> supervisorReport = new HashSet<>();
     @OneToMany(mappedBy = "applicant",fetch = FetchType.LAZY)
     private Set<ReportSystem> applicantReport = new HashSet<>();
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<ReportMessages> reportMessage = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private Set<Timetable> timetable = new HashSet<>();
 
 
     public Long getId() {
@@ -92,6 +96,9 @@ public class User {
         return cathedral;
     }
 
+    public Set<Timetable> getTimetable() {
+        return timetable;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -138,5 +145,9 @@ public class User {
 
     public void setCathedral(String cathedral) {
         this.cathedral = cathedral;
+    }
+
+    public void setTimetable(Set<Timetable> timetable) {
+        this.timetable = timetable;
     }
 }

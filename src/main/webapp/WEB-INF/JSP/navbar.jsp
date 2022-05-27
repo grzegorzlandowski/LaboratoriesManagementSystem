@@ -1,6 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <sec:authorize access="isAuthenticated()">
 <script src="/../js/getCountUserToActiveAndNotifications.js"></script>
 </sec:authorize>
@@ -59,6 +59,15 @@
                     </ul>
                 </li>
                 </sec:authorize>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Kalendarz
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/kalendarz">Harmonogram Sal</a></li>
+                        <li><a class="dropdown-item" href="/nowytermin">Dodaj nowy termin</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Konto
