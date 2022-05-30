@@ -29,7 +29,7 @@
     <c:if test="${laboratoryList != []}" >
         <table class="table table-borderless table-responsive card-1 p-4">
             <thead><tr class="border-bottom">
-                <th colspan="5"><center><h1 style="color:#FFE8E8;">Lista Laboratoriów - Harmonogram</h1></center></th>
+                <th colspan="5"><center><h1 style="color:#FFE8E8;">Lista Laboratoriów - System zgłoszeń</h1></center></th>
 
             </tr></thead>
             <thead>
@@ -43,7 +43,7 @@
             </thead>
             <tbody>
             <c:forEach var="Laboratory" items="${laboratoryList}">
-                <tr onclick="window.location='/kalendarz/${Laboratory.id}'" title="Kliknij aby przejść do kalendarza sali." style="cursor: pointer;" class="border-top">
+                <tr onclick="window.location='/nowezgloszenie/${Laboratory.id}'" title="Kliknij aby dodać nowe zgłoszenie dla sali." style="cursor: pointer;" class="border-top">
                     <td >
                             ${Laboratory.name}
                     </td>

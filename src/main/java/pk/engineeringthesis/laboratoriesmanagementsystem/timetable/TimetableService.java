@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
-import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportMessages;
-
+import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,5 +29,13 @@ public class TimetableService {
     }
     public void delete(Long id) {
         repo.deleteById(id);
+    }
+
+    public List<Timetable> confirmTimetable(User supervisor){
+
+        return repo.confirmTimetable(supervisor);
+    }
+    public Timetable get(Long id) {
+        return repo.findById(id).get();
     }
 }

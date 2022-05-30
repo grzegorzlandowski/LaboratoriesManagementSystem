@@ -36,6 +36,8 @@
             </button></c:if></div>
             <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Typ:</b> <c:if test="${reportSystem.type=='request'}">Zapotrzebowanie</c:if>
                 <c:if test="${reportSystem.type=='fault'}">Awaria/Usterka</c:if></div>
+            <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Opiekun:</b> ${reportSystem.supervisor.username}</div>
+            <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Zgłaszający:</b> ${reportSystem.applicant.username}</div>
             <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Opis:</b> ${reportSystem.description}</div></div>
 
 

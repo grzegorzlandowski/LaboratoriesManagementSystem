@@ -1,13 +1,11 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
@@ -109,6 +107,49 @@ public class TimetableController {
         List<Laboratory> laboratoryList = laboratoryService.listAll();
         model.addAttribute("laboratoryList",laboratoryList);
         return "laboratorylisttocalendar";
+    }
+
+    @RequestMapping("/potwierdztermin")
+    public String TimetabletoConfirm(Model model,HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        User user =userservice.getUserByUsername(principal.getName());
+        List<Timetable> timetableList = timetableService.confirmTimetable(user);
+        model.addAttribute("timetableList",timetableList);
+        return "timetabletoconfirm";
+    }
+
+    @RequestMapping("/potwierdztermin/{id}")
+    public String confirmEvent(@PathVariable(name = "id") Long timetableid){
+
+
+        Timetable timetable = timetableService.get(timetableid);
+        timetable.setConfirmed(true);
+        timetableService.save(timetable);
+        Notification notification=new Notification();
+        notification.setUser(timetable.getUser());
+        notification.setRead(false);
+        notification.setDate(LocalDateTime.now());
+        notification.setMessage("Twój termin dla Sali "+timetable.getLaboratory().getName() + " Rozpoczęcie: "+ timetable.getStart()+ " Zakończenie: "+ timetable.getEnd()+
+                " został potwierdzony przez opiekuna.");
+        notificationService.save(notification);
+
+        return "redirect:/potwierdztermin";
+    }
+    @RequestMapping("/anulujtermin/{id}")
+    public String deleteEvent(@PathVariable(name = "id") Long timetableid){
+
+
+        Timetable timetable= timetableService.get(timetableid);
+        timetableService.delete(timetableid);
+        Notification notification=new Notification();
+        notification.setUser(timetable.getUser());
+        notification.setRead(false);
+        notification.setDate(LocalDateTime.now());
+        notification.setMessage("Twój termin dla Sali "+timetable.getLaboratory().getName() + " Rozpoczęcie: "+ timetable.getStart()+ " Zakończenie: "+ timetable.getEnd()+
+                " został anulowany przez opiekuna. W celu poznania przyczyny skontaktuj się z opiekunem.");
+        notificationService.save(notification);
+
+        return "redirect:/potwierdztermin";
     }
 
 }

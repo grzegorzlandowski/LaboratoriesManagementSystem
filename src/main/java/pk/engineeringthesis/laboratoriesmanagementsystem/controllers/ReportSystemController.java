@@ -1,7 +1,5 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
-
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -185,6 +183,13 @@ public class ReportSystemController {
 
         model.addAttribute("reportSystemList",reportSystemService.getUserArchivalReports(user));
         return "myreportarchivallist";
+    }
+
+    @RequestMapping("/nowezgloszenie")
+    public String laboratoryListToReportSystem(Model model) {
+        List<Laboratory> laboratoryList = laboratoryService.listAll();
+        model.addAttribute("laboratoryList",laboratoryList);
+        return "laboratorylisttoreportsystem";
     }
 
 }

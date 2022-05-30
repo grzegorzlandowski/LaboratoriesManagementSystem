@@ -15,6 +15,7 @@
 <sec:authorize access="isAuthenticated()">
 
             <ul class="navbar-nav">
+                <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Ogłoszenia
@@ -24,6 +25,7 @@
                         <li><a class="dropdown-item"  href="/archiwalneaktualnosci">Archiwalne</a></li>
                     </ul>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Użytkownicy
@@ -34,6 +36,7 @@
                         <li><a class="dropdown-item" href="/nowyuzytkownik">Nowy użytkownik</a></li>
                     </ul>
                 </li>
+                    </sec:authorize>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Sale laboratoryjne
@@ -44,9 +47,15 @@
                     </ul>
                 </li>
                 <sec:authorize access="hasAnyRole('ROLE_EMPLOYEE')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/mojezgloszenia" >Moje zgłoszenia</a>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            System zgłoszeń
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/nowezgloszenie">Nowe zgłoszenie</a></li>
+                            <li><a class="dropdown-item" href="/mojezgloszenia">Moje zgłoszenia</a></li>
+                        </ul>
+                    </li>
                 </sec:authorize>
                 <sec:authorize access="hasAnyRole('ROLE_SUPERVISOR')">
                 <li class="nav-item dropdown">
@@ -54,6 +63,7 @@
                         System zgłoszeń
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/nowezgloszenie">Nowe zgłoszenie</a></li>
                         <li><a class="dropdown-item" href="/opiekun/mojezgloszenia">Zgłoszenia od użytkowników</a></li>
                         <li><a class="dropdown-item" href="/mojezgloszenia">Moje zgłoszenia</a></li>
                     </ul>
@@ -66,8 +76,10 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/kalendarz">Harmonogram Sal</a></li>
                         <li><a class="dropdown-item" href="/nowytermin">Dodaj nowy termin</a></li>
+                        <sec:authorize access="hasAnyRole('ROLE_SUPERVISOR')"> <li><a class="dropdown-item" href="/potwierdztermin">Potwierdź Termin</a></li> </sec:authorize>
                     </ul>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Konto
@@ -83,6 +95,7 @@
                     </form>
                     <a class="nav-link" onclick="document.forms['logoutForm'].submit()">Wyloguj</a>
                 </li>
+
                 <li id="bell" class="nav-item dropdown" >
 
                     <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,12 +116,12 @@
                             <div class="notification-ui_dd-footer">
                                 <a href="/pokazpowiadomienia" id="viewallbutton" class="btn btn-success btn-block">Wyświetl wszystkie</a>
                             </div>
-                        </div>
                     </ul>
-
+                 </div>
                 </li>
 
             </ul>
+
             </sec:authorize>
         </div>
     </div>

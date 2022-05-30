@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Lista laboratoriów - Harmonogram</title>
+    <title>Lista terminów do potwierdzenia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/../css/navbar.css">
@@ -21,45 +21,60 @@
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
-    <c:if test="${laboratoryList == []}" >
+    <c:if test="${timetableList == []}" >
         <div class="alert alert-warning" role="alert">
-            Brak sal laboratoryjnych
+            Brak terminów do potwierdzenia
         </div>
     </c:if>
-    <c:if test="${laboratoryList != []}" >
+    <c:if test="${timetableList != []}" >
         <table class="table table-borderless table-responsive card-1 p-4">
             <thead><tr class="border-bottom">
-                <th colspan="5"><center><h1 style="color:#FFE8E8;">Lista Laboratoriów - Harmonogram</h1></center></th>
+                <th colspan="5"><center><h1 style="color:#FFE8E8;">Harmonogram - lista terminów do potwierdzenia</h1></center></th>
 
             </tr></thead>
             <thead>
             <tr class="border-bottom">
-                <th> Nazwa</th>
-                <th>Powierzchnia</th>
-                <th>Ilość miejsc</th>
-                <th>Opiekun</th>
+                <th> Nazwa Laboratorium</th>
+                <th>Rozpoczęcie</th>
+                <th>Zakończenie</th>
+                <th>Opis</th>
+                <th>Użytkownik</th>
+                <th>Zarządzanie</th>
 
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="Laboratory" items="${laboratoryList}">
-                <tr onclick="window.location='/kalendarz/${Laboratory.id}'" title="Kliknij aby przejść do kalendarza sali." style="cursor: pointer;" class="border-top">
+            <c:forEach var="Timetable" items="${timetableList}">
+                <tr class="border-top">
                     <td >
-                            ${Laboratory.name}
+                            ${Timetable.laboratory.name}
                     </td>
                     <td >
-                            ${Laboratory.area} &#13217
+                            ${Timetable.start}
+                    </td>
+                    <td >
+                            ${Timetable.end}
 
                     </td>
                     <td >
-                            ${Laboratory.seats}
+                            ${Timetable.text}
 
                     </td>
-
                     <td >
-                        <c:if test="${Laboratory.supervisorId!=null}" >${Laboratory.supervisorId.username}</c:if>
-                        <c:if test="${Laboratory.supervisorId==null}" >Brak Opiekuna</c:if>
+                            ${Timetable.user.username}
+
                     </td>
+                    <td>
+
+                        <button onclick="return JSconfirm('Czy na pewno chcesz potwierdzić Termin?','/potwierdztermin/${Timetable.id}')"
+                                type="button" class="btn btn-success"><i class="bi bi-check-square-fill"></i> Potwierdź</button>
+                        <button type="button" class="btn btn-outline-danger" onclick="return JSconfirm('Czy na pewno chcesz anulować termin zgłoszony przez użytkownika?','/anulujtermin/${Timetable.id}')">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Anuluj
+
+                        </button>
+                    </td>
+
                 </tr>
             </c:forEach>
             </tbody>
