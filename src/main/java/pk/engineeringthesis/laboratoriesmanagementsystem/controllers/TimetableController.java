@@ -90,7 +90,7 @@ public class TimetableController {
         Principal principal = request.getUserPrincipal();
         User user =userservice.getUserByUsername(principal.getName());
         Laboratory laboratory = laboratoryService.get(laboratoryid);
-        if(laboratory.getSupervisorId()==user || user.getUsername().equals("administrator")){
+        if(laboratory.getSupervisorId()==user || user.getRole().equals("ROLE_ADMIN")){
             model.addAttribute("editor","yes");
         }
         else

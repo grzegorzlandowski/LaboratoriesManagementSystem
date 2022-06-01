@@ -1,7 +1,7 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.laboratory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.EquipmentDetails;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.LaboratoryEquipment;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
 import pk.engineeringthesis.laboratoriesmanagementsystem.timetable.Timetable;
@@ -19,6 +19,7 @@ public class Laboratory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    private String intended;
     private String description;
     private Float area;
     private int seats;
@@ -32,7 +33,7 @@ public class Laboratory {
     @JsonIgnore
     @OneToMany(mappedBy = "laboratory",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Timetable> timetable = new HashSet<>();
-    @OneToMany(mappedBy = "laboratory",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "laboratory",fetch = FetchType.LAZY)
     private Set<LaboratoryEquipment> laboratoryEquipment = new HashSet<>();
 
     public long getId() {
@@ -105,5 +106,12 @@ public class Laboratory {
 
     public void setLaboratoryEquipment(Set<LaboratoryEquipment> laboratoryEquipment) {
         this.laboratoryEquipment = laboratoryEquipment;
+    }
+    public String getIntended() {
+        return intended;
+    }
+
+    public void setIntended(String intended) {
+        this.intended = intended;
     }
 }

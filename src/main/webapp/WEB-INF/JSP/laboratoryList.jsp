@@ -35,10 +35,10 @@
             <thead>
             <tr class="border-bottom">
                 <th> Nazwa</th>
+                <th> Przeznaczenie/Typ</th>
                 <th>Powierzchnia</th>
                 <th>Ilość miejsc</th>
                 <th>Opiekun</th>
-                <sec:authorize access="hasRole('ROLE_ADMIN')"> <th>Zarządzanie</th> </sec:authorize>
 
             </tr>
             </thead>
@@ -47,6 +47,9 @@
                 <tr class="border-top">
                     <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
                             ${Laboratory.name}
+                    </td>
+                    <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
+                            ${Laboratory.intended}
                     </td>
                     <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
                             ${Laboratory.area} &#13217
@@ -60,9 +63,6 @@
                     <td style="cursor: pointer;" onclick="window.location='/laboratorium/${Laboratory.id}'">
                         <c:if test="${Laboratory.supervisorId!=null}" >${Laboratory.supervisorId.username}</c:if>
                         <c:if test="${Laboratory.supervisorId==null}" >Brak Opiekuna</c:if>
-                    </td>
-                    <td >
-                 <a href="/nowezgloszenie/${Laboratory.id}">Zgłoszenie awarii</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -40,3 +40,32 @@ body{
 
 
 }
+
+.bodycontainerlab{
+    margin-left: 5px;
+    padding-left: 10px;
+    margin-top: 2%;
+    margin-bottom: 6%;
+
+
+    box-shadow:0 0 0.3em #0D005F;
+}
+.bodycontainerlabequipment
+{
+    margin-left: 5px;
+
+    margin-top: 2%;
+    margin-bottom: 6%;
+    padding: 2%;
+
+    box-shadow:0 0 0.3em #0D005F;
+
+}
+#addbutton{
+
+    float: right;
+    padding: 10px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+
+}
