@@ -141,7 +141,7 @@ public class TimetableController {
         notification.setUser(timetable.getUser());
         notification.setRead(false);
         notification.setDate(LocalDateTime.now());
-        notification.setMessage("Twój termin dla Sali "+timetable.getLaboratory().getName() + " Rozpoczęcie: "+ timetable.getStart()+ " Zakończenie: "+ timetable.getEnd()+
+        notification.setMessage("Twój termin dla Sali "+timetable.getLaboratory().getName() + " Rozpoczęcie: "+ timetable.getStartFormatter()+ " Zakończenie: "+ timetable.getEndFormatter()+
                 " został potwierdzony przez opiekuna.");
         notificationService.save(notification);
 
@@ -157,7 +157,7 @@ public class TimetableController {
         notification.setUser(timetable.getUser());
         notification.setRead(false);
         notification.setDate(LocalDateTime.now());
-        notification.setMessage("Twój termin dla Sali "+timetable.getLaboratory().getName() + " Rozpoczęcie: "+ timetable.getStart()+ " Zakończenie: "+ timetable.getEnd()+
+        notification.setMessage("Twój termin dla Sali "+timetable.getLaboratory().getName() + " Rozpoczęcie: "+ timetable.getStartFormatter()+ " Zakończenie: "+ timetable.getEndFormatter()+
                 " został anulowany przez opiekuna. W celu poznania przyczyny skontaktuj się z opiekunem.");
         notificationService.save(notification);
 

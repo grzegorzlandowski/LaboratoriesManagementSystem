@@ -98,22 +98,42 @@ public class LaboratoryEquipmentController {
     }
 
     @RequestMapping("/usunstanowisko/{id}")
-    public String deleteEquipment(Model model,@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs){
+    public String deleteEquipment(Model model,@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
+
+
+        Principal principal = request.getUserPrincipal();
+        User user =userservice.getUserByUsername(principal.getName());
 
         LaboratoryEquipment laboratoryEquipment=laboratoryEquipmentService.get(id);
-        laboratoryEquipmentService.delete(id);
-        redirAttrs.addFlashAttribute("succes","OK");
-        return "redirect:/laboratorium/"+laboratoryEquipment.getLaboratory().getId();
+        if(laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")){
+            laboratoryEquipmentService.delete(id);
+            redirAttrs.addFlashAttribute("succes","OK");
+            return "redirect:/laboratorium/"+laboratoryEquipment.getLaboratory().getId();
+        }
+        else
+        {
+            return "redirect:/403";
+        }
+
     }
 
     @RequestMapping("/edytujwyposazenie/{id}")
-    public String editLaboratory(Model model,@PathVariable(name = "id") Long id){
+    public String editLaboratory(Model model,@PathVariable(name = "id") Long id,HttpServletRequest request){
 
+
+        Principal principal = request.getUserPrincipal();
+        User user =userservice.getUserByUsername(principal.getName());
         LaboratoryEquipment laboratoryEquipment= laboratoryEquipmentService.get(id);
-        EquipmentDetails equipmentDetails= laboratoryEquipment.getEquipmentDetails();
-        model.addAttribute("editlaboratoryequipment",laboratoryEquipment);
-        model.addAttribute("editequipmentdetails",equipmentDetails);
-        return "editlaboratoryequipment";
+        if(laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+            EquipmentDetails equipmentDetails = laboratoryEquipment.getEquipmentDetails();
+            model.addAttribute("editlaboratoryequipment", laboratoryEquipment);
+            model.addAttribute("editequipmentdetails", equipmentDetails);
+            return "editlaboratoryequipment";
+        }
+        else
+        {
+            return "redirect:/403";
+        }
     }
 
     @RequestMapping("/edytujwyposazenie/zapisz")
@@ -128,27 +148,30 @@ public class LaboratoryEquipmentController {
     }
 
     @RequestMapping("/usunwyposazenie/{id}")
-    public String deleteequipmentdetails(Model model,@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs){
+    public String deleteequipmentdetails(Model model,@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
 
-
-
+        Principal principal = request.getUserPrincipal();
+        User user =userservice.getUserByUsername(principal.getName());
         LaboratoryEquipment laboratoryEquipment=laboratoryEquipmentService.get(id);
-        EquipmentDetails equipmentDetails= laboratoryEquipment.getEquipmentDetails();
-        Integer count = equipmentDetailsService.countEquipmentDetailst(equipmentDetails);
-        if(count>1)
-        {
+        if(laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+            EquipmentDetails equipmentDetails = laboratoryEquipment.getEquipmentDetails();
+            Integer count = equipmentDetailsService.countEquipmentDetailst(equipmentDetails);
+            if (count > 1) {
 
-            redirAttrs.addFlashAttribute("delete","NOK");
+                redirAttrs.addFlashAttribute("delete", "NOK");
 
+            } else {
+                laboratoryEquipmentService.delete(id);
+                equipmentDetailsService.delete(equipmentDetails.getId());
+                redirAttrs.addFlashAttribute("succes", "OK");
+
+            }
+            return "redirect:/laboratorium/" + laboratoryEquipment.getLaboratory().getId();
         }
         else
         {
-            laboratoryEquipmentService.delete(id);
-            equipmentDetailsService.delete(equipmentDetails.getId());
-            redirAttrs.addFlashAttribute("succes","OK");
-
+            return "redirect:/403";
         }
-        return "redirect:/laboratorium/"+laboratoryEquipment.getLaboratory().getId();
 
     }
     @RequestMapping("/wyposazenie/{id}")

@@ -162,10 +162,20 @@ public class LaboratoryController {
     }
 
     @RequestMapping("/edytujlaboratorium/{id}")
-    public String editLaboratory(Model model,@PathVariable(name = "id") Long id){
-        model.addAttribute("editlaboratory",laboratoryService.get(id));
-        model.addAttribute("users",userservice.findSupervisor());
-        return "editlaboratory";
+    public String editLaboratory(Model model,@PathVariable(name = "id") Long id,HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+        User user =userservice.getUserByUsername(principal.getName());
+        Laboratory laboratory = laboratoryService.get(id);
+        if(laboratory.getSupervisorId()==user || user.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("editlaboratory", laboratory);
+            model.addAttribute("users", userservice.findSupervisor());
+            return "editlaboratory";
+        }
+        else
+        {
+            return "redirect:/403";
+        }
     }
 
     @RequestMapping("/zapiszedytowanelaboratorium")

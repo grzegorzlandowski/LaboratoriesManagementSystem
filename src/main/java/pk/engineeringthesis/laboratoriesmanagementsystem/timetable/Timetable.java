@@ -9,6 +9,7 @@ import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Timetable {
@@ -40,6 +41,7 @@ public class Timetable {
         this.id = id;
     }
 
+
     public LocalDateTime getStart() {
         return start;
     }
@@ -50,6 +52,16 @@ public class Timetable {
 
     public LocalDateTime getEnd() {
         return end;
+    }
+    public String getEndFormatter() {
+        DateTimeFormatter FOMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        return FOMATTER.format(this.getEnd());
+    }
+    public String getStartFormatter() {
+        DateTimeFormatter FOMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        return FOMATTER.format(this.getStart());
     }
 
     public void setEnd(LocalDateTime end) {

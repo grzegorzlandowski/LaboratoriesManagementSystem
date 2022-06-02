@@ -50,10 +50,10 @@
                             ${Timetable.laboratory.name}
                     </td>
                     <td >
-                            ${Timetable.start}
+                            ${Timetable.startFormatter}
                     </td>
                     <td >
-                            ${Timetable.end}
+                            ${Timetable.endFormatter}
 
                     </td>
                     <td >
