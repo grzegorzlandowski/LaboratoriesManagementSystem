@@ -21,6 +21,7 @@ public class InformationDashboard {
     private long id;
     private String title;
     private LocalDate date;
+    private LocalDate editDate;
     private String description;
     private Boolean isActive;
 
@@ -62,5 +63,13 @@ public class InformationDashboard {
 
     public void setIsactive(Boolean isactive) {
         this.isActive = isactive;
+    }
+
+    public LocalDate getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(LocalDate editDate) {
+        this.editDate = editDate;
     }
 }

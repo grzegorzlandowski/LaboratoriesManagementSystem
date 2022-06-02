@@ -53,15 +53,15 @@
                 <form:input required="required" class="form-control" path="title"/>
             </div>
             <div class="mb-3">
-                <label class="form-label">Tytuł</label>
+                <label class="form-label">Data dodania</label>
 
-                <form:input required="required" class="form-control" path="date" value="${dateString}"/>
+                <form:input required="required" readonly="true" class="form-control" path="date" value="${dateString}"/>
             </div>
             <div class="mb-3">
                 <label  class="form-label">Opis</label>
                 <form:textarea id="summernote" path="description"/>
             </div>
-            <div class="d-flex justify-content-center"><button class="btn btn-primary" type="submit">Dodaj Aktualność</button></div>
+            <div class="d-flex justify-content-center"><button class="btn btn-primary" type="submit">Zapisz Aktualność</button></div>
         </form:form>
     </div>
 </div>

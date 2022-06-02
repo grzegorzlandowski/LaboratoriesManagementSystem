@@ -44,7 +44,12 @@
     <button onclick="history.back()" id="addmessage" type="button" class="btn btn-success">
         <i class="bi bi-back"></i> Powrót
     </button>
-
+    <sec:authorize access="hasAnyRole('ROLE_SUPERVISOR','ROLE_EMPLOYEE')"> <button onclick="window.location='/nowezgloszenie/${laboratory.id}'" id="addbutton" type="button" class="btn btn-warning"">
+        Zgłoś Awarię </i></sec:authorize>
+    </button>
+    <button onclick="window.location='/kalendarz/${laboratory.id}'" id="addbutton" type="button" class="btn btn-info">
+    Wyświetl harmonogram </i>
+    </button>
     <div class="bodycontainerlab" class="container rounded">
         <c:if test="${editor== 'yes'}">
           <button style="margin-top: 10px;margin-right: 40px;" onclick="window.location='/edytujlaboratorium/${laboratory.id}'" id="addbutton" type="button" class="btn btn-primary" >

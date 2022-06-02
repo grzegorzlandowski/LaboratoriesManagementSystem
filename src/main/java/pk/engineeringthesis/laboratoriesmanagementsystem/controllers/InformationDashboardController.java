@@ -59,6 +59,7 @@ public class InformationDashboardController {
 
         informationdashboard.setId(id);
         informationdashboard.setIsactive(true);
+        informationdashboard.setEditDate(LocalDate.now());
         try {
             informationdashboardservice.save(informationdashboard);
 

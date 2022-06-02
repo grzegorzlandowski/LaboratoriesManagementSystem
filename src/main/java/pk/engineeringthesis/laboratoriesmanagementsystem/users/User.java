@@ -3,6 +3,8 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Where;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportMessages;
@@ -14,13 +16,14 @@ import java.util.HashSet;
 import java.util.Set;
 @Entity
 @Table(name = "users")
+@Indexed
 public class User {
 
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Field
     private String username;
     private String password;
     private String role;

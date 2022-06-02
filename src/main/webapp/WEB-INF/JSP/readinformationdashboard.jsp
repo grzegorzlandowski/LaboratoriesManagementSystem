@@ -21,7 +21,8 @@
 <h1 class="text-center" style="color:#FFE8E8;">${readinformationdashboard.title}</h1>
 
     <div style="color:#FFE8E8">${readinformationdashboard.description}</div>
-
+<c:if test="${readinformationdashboard.editDate != null}" >
+    <div class="text-end" style="color:#FFE8E8">Ostatnia aktualizacja: ${readinformationdashboard.editDate}</div> </c:if>
 </div>
 
 <%@include file="footer.jsp" %>

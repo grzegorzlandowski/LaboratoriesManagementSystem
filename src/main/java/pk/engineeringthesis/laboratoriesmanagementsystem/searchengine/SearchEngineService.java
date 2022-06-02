@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
-
+import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 
 @Service
@@ -69,7 +69,6 @@ public class SearchEngineService implements SearchEngineRepository {
 
         final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
                 .forEntity(Laboratory.class).get();
-
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
         outer.must(queryBuilder.keyword().onFields("intended").matching(keywords).createQuery());
@@ -142,10 +141,153 @@ public class SearchEngineService implements SearchEngineRepository {
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
         outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery());
+        List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
+                .getResultList();
+        return resultList;
+    }
+
+
+
+
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Laboratory> searchLaboratoryByNameWithSupervisor(final String keywords,final String supervisor) {
+
+        final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+
+        final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+                .forEntity(Laboratory.class).get();
+
+
+        final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
+        outer.must(queryBuilder.keyword().onFields("name").matching(keywords).createQuery())
+        .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
+                .createQuery();
+
+        List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
+                .getResultList();
+        return resultList;
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Laboratory> searchLaboratoryByDescriptionWithSupervisor(final String keywords,final String supervisor) {
+
+        final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+
+        final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+                .forEntity(Laboratory.class).get();
+
+
+        final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
+        outer.must(queryBuilder.keyword().onFields("description").matching(keywords).createQuery())
+        .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
+         .createQuery();
+
+        List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
+                .getResultList();
+        return resultList;
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Laboratory> searchLaboratoryByIntendedWithSupervisor(final String keywords,final String supervisor) {
+
+        final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+
+        final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+                .forEntity(Laboratory.class).get();
+
+
+        final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
+        outer.must(queryBuilder.keyword().onFields("intended").matching(keywords).createQuery())
+                .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
+                .createQuery();
+
+        List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
+                .getResultList();
+        return resultList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Laboratory> searchLaboratoryByEquipmentLocationWithSupervisor(final String keywords,final String supervisor) {
+
+        final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+
+        final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+                .forEntity(Laboratory.class).get();
+
+
+        final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
+        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.location").matching(keywords).createQuery())
+                .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
+                .createQuery();
+        List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
+                .getResultList();
+        return resultList;
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Laboratory> searchLaboratoryByEquipmentNameWithSupervisor(final String keywords,final String supervisor) {
+
+        final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+
+        final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+                .forEntity(Laboratory.class).get();
+
+
+        final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
+        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.title").matching(keywords).createQuery())
+                .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
+                .createQuery();
+        List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
+                .getResultList();
+        return resultList;
+    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Laboratory> searchLaboratoryByEquipmentTypeWithSupervisor(final String keywords,final String supervisor) {
+
+        final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+
+        final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+                .forEntity(Laboratory.class).get();
+
+
+        final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
+        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.type").matching(keywords).createQuery())
+                .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
+                .createQuery();
+        List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
+                .getResultList();
+        return resultList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Laboratory> searchLaboratoryByEquipmentDescriptionWithSupervisor(final String keywords,final String supervisor) {
+
+        final FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+
+        final QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
+                .forEntity(Laboratory.class).get();
+
+
+        final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery());
         //outer.must(queryBuilder.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(0).onField("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery());
-        //outer.must(queryBuilder.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(0).onField("tytul").matching(keywords).createQuery())
-        //.must(queryBuilder.keyword().onField("dostepnosc").matching("false").createQuery())
-        //.createQuery();
+        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery())
+                .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
+                .createQuery();
 
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();

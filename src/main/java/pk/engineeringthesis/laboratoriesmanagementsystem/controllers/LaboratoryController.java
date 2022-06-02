@@ -67,40 +67,82 @@ public class LaboratoryController {
     public String laboratorysearcher(Model model,@ModelAttribute("search Engine") SearchEngine search) {
 
         List<Laboratory> laboratoryList = new ArrayList<>();
-
-        if(search.getAttribute().equals("laboratoryname"))
-        {
-            laboratoryList = searchService.searchLaboratoryByName(search.getValue());
-        }
-        else if(search.getAttribute().equals("laboratorydescription"))
-        {
-            laboratoryList = searchService.searchLaboratoryByDescription(search.getValue());
-        }
-        else if(search.getAttribute().equals("laboratoryintended"))
-        {
-            laboratoryList = searchService.searchLaboratoryByIntended(search.getValue());
-        }
-        else if(search.getAttribute().equals("equipmentlocation"))
-        {
-            laboratoryList = searchService.searchLaboratoryByEquipmentLocation(search.getValue());
-        }
-        else if(search.getAttribute().equals("equipmenttitle"))
-        {
-            laboratoryList = searchService.searchLaboratoryByEquipmentName(search.getValue());
-        }
-        else if(search.getAttribute().equals("equipmenttype"))
-        {
-            laboratoryList = searchService.searchLaboratoryByEquipmentType(search.getValue());
-        }
-        else if(search.getAttribute().equals("equipmentdescription"))
-        {
-            laboratoryList = searchService.searchLaboratoryByEquipmentDescription(search.getValue());
+        switch(search.getAttribute()){
+            case "laboratoryname":
+                laboratoryList = searchService.searchLaboratoryByName(search.getValue());
+                break;
+            case "laboratorydescription":
+                laboratoryList = searchService.searchLaboratoryByDescription(search.getValue());
+                break;
+            case "laboratoryintended":
+                laboratoryList = searchService.searchLaboratoryByIntended(search.getValue());
+                break;
+            case"equipmentlocation":
+                laboratoryList = searchService.searchLaboratoryByEquipmentLocation(search.getValue());
+                break;
+            case "equipmenttitle":
+                laboratoryList = searchService.searchLaboratoryByEquipmentName(search.getValue());
+                break;
+            case "equipmenttype":
+                laboratoryList = searchService.searchLaboratoryByEquipmentType(search.getValue());
+                break;
+            case "equipmentdescription":
+                laboratoryList = searchService.searchLaboratoryByEquipmentDescription(search.getValue());
+                break;
         }
 
         model.addAttribute("laboratoryList",laboratoryList);
         model.addAttribute("searchEngine",search);
         return "laboratoryList";
     }
+
+    @RequestMapping(value ="/mojelaboratoria",method = RequestMethod.GET)
+    public String laboratoryList(Model model,HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        User user = userservice.getUserByUsername(principal.getName());
+        List<Laboratory> laboratoryList = laboratoryService.findBySupervisor(user);
+        model.addAttribute("laboratoryList",laboratoryList);
+        model.addAttribute("mylaboratory","yes");
+        model.addAttribute("searchEngine",new SearchEngine());
+        return "laboratoryList";
+    }
+
+    @RequestMapping(value ="/mojelaboratoria",method = RequestMethod.POST)
+    public String laboratorysearchertoSupervisor(Model model,@ModelAttribute("search Engine") SearchEngine search,HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+        User user = userservice.getUserByUsername(principal.getName());
+        List<Laboratory> laboratoryList = new ArrayList<>();
+
+        switch(search.getAttribute()) {
+            case "laboratoryname":
+                laboratoryList = searchService.searchLaboratoryByNameWithSupervisor(search.getValue(), user.getUsername());
+                break;
+            case "laboratorydescription":
+                laboratoryList = searchService.searchLaboratoryByDescriptionWithSupervisor(search.getValue(), user.getUsername());
+                break;
+            case "laboratoryintended":
+                laboratoryList = searchService.searchLaboratoryByIntendedWithSupervisor(search.getValue(), user.getUsername());
+                break;
+            case "equipmentlocation":
+                laboratoryList = searchService.searchLaboratoryByEquipmentLocationWithSupervisor(search.getValue(), user.getUsername());
+                break;
+            case "equipmenttitle":
+                laboratoryList = searchService.searchLaboratoryByEquipmentNameWithSupervisor(search.getValue(), user.getUsername());
+                break;
+            case "equipmenttype":
+                laboratoryList = searchService.searchLaboratoryByEquipmentTypeWithSupervisor(search.getValue(), user.getUsername());
+                break;
+            case "equipmentdescription":
+                laboratoryList = searchService.searchLaboratoryByEquipmentDescriptionWithSupervisor(search.getValue(), user.getUsername());
+                break;
+        }
+        model.addAttribute("laboratoryList",laboratoryList);
+        model.addAttribute("searchEngine",search);
+        model.addAttribute("mylaboratory","yes");
+        return "laboratoryList";
+    }
+
 
     @RequestMapping("/laboratorium/{id}")
     public String getReport(Model model, @PathVariable(name = "id") Long id, HttpServletRequest request) {

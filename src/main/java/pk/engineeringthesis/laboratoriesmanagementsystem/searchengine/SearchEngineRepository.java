@@ -2,6 +2,7 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.searchengine;
 
 import org.springframework.stereotype.Repository;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
+import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 import java.util.List;
 
@@ -15,4 +16,13 @@ public interface SearchEngineRepository {
     List<Laboratory> searchLaboratoryByEquipmentName(final String keywords);
     List<Laboratory> searchLaboratoryByEquipmentType(final String keywords);
     List<Laboratory> searchLaboratoryByEquipmentDescription(final String keywords);
+
+    List<Laboratory> searchLaboratoryByNameWithSupervisor(final String keywords,final String supervisor);
+    List<Laboratory> searchLaboratoryByDescriptionWithSupervisor(final String keywords,final String supervisor);
+    List<Laboratory> searchLaboratoryByIntendedWithSupervisor(final String keywords,final String supervisor);
+    List<Laboratory> searchLaboratoryByEquipmentLocationWithSupervisor(final String keywords,final String supervisor);
+    List<Laboratory> searchLaboratoryByEquipmentNameWithSupervisor(final String keywords,final String supervisor);
+    List<Laboratory> searchLaboratoryByEquipmentTypeWithSupervisor(final String keywords,final String supervisor);
+    List<Laboratory> searchLaboratoryByEquipmentDescriptionWithSupervisor(final String keywords,final String supervisor);
+
 }

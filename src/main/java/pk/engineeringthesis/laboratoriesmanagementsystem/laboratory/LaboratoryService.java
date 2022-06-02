@@ -2,9 +2,11 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.laboratory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
+import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 
 import java.util.List;
@@ -23,9 +25,13 @@ public class LaboratoryService {
         return repo.findAll(Sort.by(Sort.Direction.ASC, "name"));
 
     }
-
     public Laboratory get(Long id) {
         return repo.findById(id).get();
+    }
+
+    public List<Laboratory> findBySupervisor(User Supervisor){
+
+        return repo.findBySupervisor(Supervisor);
     }
 
 

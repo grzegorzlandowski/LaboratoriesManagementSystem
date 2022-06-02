@@ -2,11 +2,9 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
@@ -16,9 +14,7 @@ import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.Lab
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.LaboratoryEquipmentService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
 @Controller
@@ -101,7 +97,6 @@ public class LaboratoryEquipmentController {
         return "redirect:/laboratorium/"+laboratoryid;
     }
 
-
     @RequestMapping("/usunstanowisko/{id}")
     public String deleteEquipment(Model model,@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs){
 
@@ -158,9 +153,6 @@ public class LaboratoryEquipmentController {
     }
     @RequestMapping("/wyposazenie/{id}")
     public String getLaboratoryEquipment(Model model, @PathVariable(name = "id") Long id) {
-
-
-
 
         model.addAttribute("laboratoryequipment",laboratoryEquipmentService.get(id));
         return "getlaboratoryequipment";

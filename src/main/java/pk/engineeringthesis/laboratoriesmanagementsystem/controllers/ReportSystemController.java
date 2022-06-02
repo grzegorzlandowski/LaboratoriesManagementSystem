@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
@@ -15,6 +16,8 @@ import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportMess
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportMessagesService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystemService;
+import pk.engineeringthesis.laboratoriesmanagementsystem.searchengine.SearchEngine;
+import pk.engineeringthesis.laboratoriesmanagementsystem.searchengine.SearchEngineService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +38,8 @@ public class ReportSystemController {
     LaboratoryService laboratoryService;
     @Autowired
     UserDetailsServiceImpl userservice;
+    @Autowired
+    private SearchEngineService searchService;
 
     @RequestMapping("/nowezgloszenie/{id}")
     public String NewReport(Model model,@PathVariable(name = "id") Long id){
@@ -47,9 +52,6 @@ public class ReportSystemController {
 
     @RequestMapping("/zapiszzgloszenie/{id}")
     public String SaveNewReport(@ModelAttribute("reportsystem") ReportSystem reportSystem, @PathVariable(name = "id") Long laboratoryid,HttpServletRequest request){
-
-
-
 
         reportSystem.setId(0);
         Laboratory laboratory= laboratoryService.get(laboratoryid);
@@ -72,7 +74,7 @@ public class ReportSystemController {
         reportSystemService.save(reportSystem);
         notificationService.save(notification);
 
-        return "redirect:/listalaboratoriow";
+        return "redirect:/nowezgloszenie";
     }
     @RequestMapping("/mojezgloszenia")
     public String ReportList(Model model,HttpServletRequest request) {
@@ -185,10 +187,18 @@ public class ReportSystemController {
         return "myreportarchivallist";
     }
 
-    @RequestMapping("/nowezgloszenie")
+    @RequestMapping(value = "/nowezgloszenie",method = RequestMethod.GET)
     public String laboratoryListToReportSystem(Model model) {
         List<Laboratory> laboratoryList = laboratoryService.listAll();
         model.addAttribute("laboratoryList",laboratoryList);
+        model.addAttribute("searchEngine",new SearchEngine());
+        return "laboratorylisttoreportsystem";
+    }
+    @RequestMapping(value = "/nowezgloszenie",method = RequestMethod.POST)
+    public String laboratoryListToReportSystem(Model model,@ModelAttribute("searchEngine") SearchEngine searchEngine) {
+        List<Laboratory> laboratoryList = searchService.searchLaboratoryByName(searchEngine.getValue());
+        model.addAttribute("laboratoryList",laboratoryList);
+        model.addAttribute("searchEngine",searchEngine);
         return "laboratorylisttoreportsystem";
     }
 

@@ -30,6 +30,7 @@ public class Laboratory {
     private String description;
     private Float area;
     private int seats;
+    @IndexedEmbedded
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "supervisor_id", nullable = true)

@@ -6,16 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.NotificationService;
+import pk.engineeringthesis.laboratoriesmanagementsystem.searchengine.SearchEngineService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.timetable.Timetable;
 import pk.engineeringthesis.laboratoriesmanagementsystem.timetable.TimetableService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
-
+import pk.engineeringthesis.laboratoriesmanagementsystem.searchengine.SearchEngine;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -32,6 +34,8 @@ public class TimetableController {
     NotificationService notificationService;
     @Autowired
     TimetableService timetableService;
+    @Autowired
+    private SearchEngineService searchService;
 
     @RequestMapping("/nowytermin")
     public String NewReport(Model model){
@@ -102,10 +106,18 @@ public class TimetableController {
         return "calendar";
     }
 
-    @RequestMapping("/kalendarz")
+    @RequestMapping(value="/kalendarz",method = RequestMethod.GET)
     public String laboratoryListToCalendar(Model model) {
         List<Laboratory> laboratoryList = laboratoryService.listAll();
         model.addAttribute("laboratoryList",laboratoryList);
+        model.addAttribute("searchEngine",new SearchEngine());
+        return "laboratorylisttocalendar";
+    }
+    @RequestMapping(value="/kalendarz",method = RequestMethod.POST)
+    public String laboratoryListToCalendar(Model model,@ModelAttribute("searchEngine") SearchEngine searchEngine) {
+        List<Laboratory> laboratoryList = searchService.searchLaboratoryByName(searchEngine.getValue());
+        model.addAttribute("laboratoryList",laboratoryList);
+        model.addAttribute("searchEngine",searchEngine);
         return "laboratorylisttocalendar";
     }
 

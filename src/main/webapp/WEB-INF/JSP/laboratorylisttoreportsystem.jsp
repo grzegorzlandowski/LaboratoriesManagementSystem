@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/../css/body.css">
     <link rel="stylesheet" href="/../css/footer.css">
     <link rel="stylesheet" href="/../css/table.css">
+    <link rel="stylesheet" href="/../css/searchcss.css">
     <script src="/../js/confirmbox.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
@@ -21,6 +22,15 @@
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
+    <form:form modelAttribute="searchEngine" action="/nowezgloszenie" method="post" >
+        <div id="searchengine2" class="input-group mb-3">
+
+            <form:input required="required" path="value" type="text" class="form-control" placeholder="Wpisz nazwę laboratorium"/>
+            <button class="input-group-text shadow-none px-4 btn-warning">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form:form>
     <c:if test="${laboratoryList == []}" >
         <div class="alert alert-warning" role="alert">
             Brak sal laboratoryjnych
