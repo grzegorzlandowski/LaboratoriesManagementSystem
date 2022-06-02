@@ -1,10 +1,13 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment;
 
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 
 import javax.persistence.*;
-
+@Indexed
 @Entity
 public class LaboratoryEquipment {
 
@@ -16,9 +19,11 @@ public class LaboratoryEquipment {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "laboratory_id")
     private Laboratory laboratory;
+    @IndexedEmbedded
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "equipment_details_id")
     private EquipmentDetails equipmentDetails;
+    @Field
     private String location;
     private String additionalInformation;
 

@@ -1,6 +1,9 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.laboratory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.EquipmentDetails;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.LaboratoryEquipment;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
@@ -12,14 +15,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Indexed
 public class Laboratory {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Field
     private String name;
+    @Field
     private String intended;
+    @Field
     private String description;
     private Float area;
     private int seats;
@@ -33,6 +40,7 @@ public class Laboratory {
     @JsonIgnore
     @OneToMany(mappedBy = "laboratory",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Timetable> timetable = new HashSet<>();
+    @IndexedEmbedded
     @OneToMany(mappedBy = "laboratory",fetch = FetchType.LAZY)
     private Set<LaboratoryEquipment> laboratoryEquipment = new HashSet<>();
 
