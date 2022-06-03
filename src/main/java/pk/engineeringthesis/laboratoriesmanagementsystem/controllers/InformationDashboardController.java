@@ -78,14 +78,14 @@ public class InformationDashboardController {
         }
     }
     @RequestMapping("/zaktualizujaktualnosc/{id}")
-    public String saveEditedItnformationDashboard(@ModelAttribute("editinformationdashboard") InformationDashboard informationdashboard,@PathVariable(name = "id") Long id) {
+    public String saveEditedItnformationDashboard(@ModelAttribute("editinformationdashboard") InformationDashboard informationdashboard,@PathVariable(name = "id") Long id,RedirectAttributes redirAttrs) {
 
         informationdashboard.setId(id);
         informationdashboard.setIsactive(true);
         informationdashboard.setEditDate(LocalDate.now());
         try {
             informationdashboardservice.save(informationdashboard);
-
+            redirAttrs.addFlashAttribute("succes", "OK");
         }
         catch (Exception e )
         {

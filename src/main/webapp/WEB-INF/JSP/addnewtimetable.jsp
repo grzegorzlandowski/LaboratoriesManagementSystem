@@ -7,6 +7,7 @@
 <head>
     <meta charset="uft-8" />
     <title>Dodaj nowy Termin</title>
+    <%@include file="icons.html" %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -21,13 +22,14 @@
 <div id="bodycontainer" class="container rounded">
 
     <div class="bodycontainer" class="container rounded">
-        <c:if test="${notificationok!= null}" >
-            <div id="usercheck" class="alert alert-success alert-dismissible fade show" role="alert">
-                    ${notificationok}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
+
         <form:form id="form1" name="form1" modelAttribute="newtimetable" method="POST" action="/zapisztermin" class="rounded p-4 p-sm-3">
+            <c:if test="${notificationok!= null}" >
+                <div id="usercheck" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg> ${notificationok}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
             <div class="mb-3">
                 <label class="form-label">Data rozpoczęcia</label>
                 <form:input type="datetime-local" required="required" class="form-control" path="start" step="900"/>

@@ -88,7 +88,7 @@ public class UserController {
     }
 
     @RequestMapping("/potwierdzuzytkownika/{id}")
-    public String confirmUser(@PathVariable(name = "id") Long id)throws MessagingException{
+    public String confirmUser(@PathVariable(name = "id") Long id,RedirectAttributes redirAttrs)throws MessagingException{
 
         try {
             User user = userservice.getUserById(id);
@@ -98,6 +98,7 @@ public class UserController {
                     "<center><h1>Administrator potwierdził twoje konto!</h1></center>" +
                             "Twoje konto zostało potwierdzone przez administratora. Teraz możesz się zalogować wykorzystującswoje dane(login oraz hasło) " +
                             "wpisane podczas rejestracji", true);
+            redirAttrs.addFlashAttribute("status", "OK");
             return "redirect:/potwierdzuzytkownika";
         }
         catch (Exception e){
@@ -116,7 +117,7 @@ public class UserController {
 
 
     @RequestMapping(value="/nowyuzytkownik/zapiszuzytkownika", method=RequestMethod.POST)
-    public String SaveUserByAdmin(Model model, @ModelAttribute("newuser") User user, RedirectAttributes redirAttrs)throws MessagingException{
+    public String SaveUserByAdmin(Model model, @ModelAttribute("newuser") User user,RedirectAttributes redirAttrs)throws MessagingException{
 
         User userExists = userservice.getUserByUsername(user.getUsername());
         User userExistsEmail = userservice.getUserByEmail(user.getEmail());
@@ -172,7 +173,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/edytujuzytkownika/zapiszuzytkownika", method=RequestMethod.POST)
-    public String SaveUserByAdmin(Model model, @ModelAttribute("edituser") User user){
+    public String SaveEditedUserByAdmin(Model model, @ModelAttribute("edituser") User user,RedirectAttributes redirAttrs){
 
 
         User userExistsEmail = userservice.getUserByEmail(user.getEmail());
@@ -187,7 +188,7 @@ public class UserController {
             user.setPassword(thisuser.getPassword());
             user.setStatus("Zaakceptowane");
             userservice.save(user);
-
+            redirAttrs.addFlashAttribute("succes","OK");
             return "redirect:/zarzadzanieuzytkownikami/lista";
         }
     }
@@ -209,13 +210,14 @@ public class UserController {
     }
 
     @RequestMapping(value="/edytujhaslouzytkownika/zapiszuzytkownika", method=RequestMethod.POST)
-    public String SaveUserPasswordByAdmin( @ModelAttribute("edituserpassword") User user){
+    public String SaveUserPasswordByAdmin( @ModelAttribute("edituserpassword") User user,RedirectAttributes redirAttrs){
 
              User thisuser = userservice.getUserById(user.getId());
              String pass=user.getPassword();
              String codepass= encryptpassword.encodepassword(pass);
              thisuser.setPassword(codepass);
              userservice.save(thisuser);
+        redirAttrs.addFlashAttribute("succes","OK");
             return "redirect:/zarzadzanieuzytkownikami/lista";
 
     }

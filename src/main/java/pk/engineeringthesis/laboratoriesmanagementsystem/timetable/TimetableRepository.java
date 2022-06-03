@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface TimetableRepository extends JpaRepository<Timetable, Long> {
 
-    @Query("SELECT t FROM Timetable t WHERE t.start BETWEEN :start AND :end OR t.end BETWEEN :start AND :end AND t.laboratory = :laboratory")
+    //@Query("SELECT t FROM Timetable t WHERE (t.start BETWEEN :start AND :end OR t.end BETWEEN :start AND :end) AND t.laboratory = :laboratory")
+    @Query("from Timetable t where not(t.end <= :start or t.start >= :end) AND t.laboratory = :laboratory")
     List<Timetable> isFree(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("laboratory")Laboratory laboratory);
     @Query("from Timetable t where not(t.end < :from or t.start > :to) AND t.laboratory = :laboratory AND t.confirmed = true")
     List<Timetable> findBetween(@Param("from") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) LocalDateTime start, @Param("to") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,@Param("laboratory")Laboratory laboratory);

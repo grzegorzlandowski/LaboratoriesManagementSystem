@@ -15,6 +15,16 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/../js/confirmbox.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+    <c:if test="${succes== 'OK'}">
+        <script>
+            $(document).ready(function (){
+                swal({
+                    text: "Operacja zakończyła się powodzeniem",
+                    timer: 1000,
+                });
+            });
+        </script>
+    </c:if>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
