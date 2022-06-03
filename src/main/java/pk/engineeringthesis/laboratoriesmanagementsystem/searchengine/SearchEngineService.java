@@ -29,7 +29,9 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("name").matching(keywords).createQuery());
+        //outer.must(queryBuilder.keyword().onFields("name").matching(keywords).createQuery());
+            outer.must(queryBuilder.phrase().onField("name").sentence(keywords).createQuery());
+
                List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();
         return resultList;
@@ -46,7 +48,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("description").matching(keywords).createQuery());
+        //outer.must(queryBuilder.keyword().onFields("description").matching(keywords).createQuery());
+        outer.must(queryBuilder.phrase().withSlop(20).onField("description").sentence(keywords).createQuery());
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();
         return resultList;
@@ -62,7 +65,8 @@ public class SearchEngineService implements SearchEngineRepository {
                 .forEntity(Laboratory.class).get();
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("intended").matching(keywords).createQuery());
+        //outer.must(queryBuilder.keyword().onFields("intended").matching(keywords).createQuery());
+        outer.must(queryBuilder.phrase().onField("intended").sentence(keywords).createQuery());
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();
         return resultList;
@@ -80,7 +84,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.location").matching(keywords).createQuery());
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.location").matching(keywords).createQuery());
+        outer.must(queryBuilder.phrase().onField("laboratoryEquipment.location").sentence(keywords).createQuery());
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();
         return resultList;
@@ -97,7 +102,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.title").matching(keywords).createQuery());
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.title").matching(keywords).createQuery());
+        outer.must(queryBuilder.phrase().onField("laboratoryEquipment.equipmentDetails.title").sentence(keywords).createQuery());
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();
         return resultList;
@@ -114,7 +120,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.type").matching(keywords).createQuery());
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.type").matching(keywords).createQuery());
+        outer.must(queryBuilder.phrase().onField("laboratoryEquipment.equipmentDetails.type").sentence(keywords).createQuery());
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();
         return resultList;
@@ -131,16 +138,12 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery());
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery());
+        outer.must(queryBuilder.phrase().withSlop(100).onField("laboratoryEquipment.equipmentDetails.description").sentence(keywords).createQuery());
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
                 .getResultList();
         return resultList;
     }
-
-
-
-
-
 
 
     @Override
@@ -155,7 +158,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("name").matching(keywords).createQuery())
+        //outer.must(queryBuilder.keyword().onFields("name").matching(keywords).createQuery())
+        outer.must(queryBuilder.phrase().onField("name").sentence(keywords).createQuery())
         .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
                 .createQuery();
 
@@ -175,7 +179,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("description").matching(keywords).createQuery())
+        //outer.must(queryBuilder.keyword().onFields("description").matching(keywords).createQuery())
+        outer.must(queryBuilder.phrase().withSlop(20).onField("description").sentence(keywords).createQuery())
         .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
          .createQuery();
 
@@ -195,7 +200,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("intended").matching(keywords).createQuery())
+        //outer.must(queryBuilder.keyword().onFields("intended").matching(keywords).createQuery())
+        outer.must(queryBuilder.phrase().onField("intended").sentence(keywords).createQuery())
                 .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
                 .createQuery();
 
@@ -216,7 +222,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.location").matching(keywords).createQuery())
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.location").matching(keywords).createQuery())
+        outer.must(queryBuilder.phrase().onField("laboratoryEquipment.location").sentence(keywords).createQuery())
                 .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
                 .createQuery();
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
@@ -235,7 +242,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.title").matching(keywords).createQuery())
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.title").matching(keywords).createQuery())
+        outer.must(queryBuilder.phrase().onField("laboratoryEquipment.equipmentDetails.title").sentence(keywords).createQuery())
                 .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
                 .createQuery();
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
@@ -254,7 +262,8 @@ public class SearchEngineService implements SearchEngineRepository {
 
 
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.type").matching(keywords).createQuery())
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.type").matching(keywords).createQuery())
+        outer.must(queryBuilder.phrase().onField("laboratoryEquipment.equipmentDetails.type").sentence(keywords).createQuery())
                 .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
                 .createQuery();
         List<Laboratory> resultList = fullTextEntityManager.createFullTextQuery(outer.createQuery(), Laboratory.class)
@@ -276,7 +285,8 @@ public class SearchEngineService implements SearchEngineRepository {
         final BooleanJunction<BooleanJunction> outer = queryBuilder.bool();
         //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery());
         //outer.must(queryBuilder.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(0).onField("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery());
-        outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery())
+        //outer.must(queryBuilder.keyword().onFields("laboratoryEquipment.equipmentDetails.description").matching(keywords).createQuery())
+        outer.must(queryBuilder.phrase().withSlop(100).onField("laboratoryEquipment.equipmentDetails.description").sentence(keywords).createQuery())
                 .must(queryBuilder.keyword().onField("supervisorId.username").matching(supervisor).createQuery())
                 .createQuery();
 

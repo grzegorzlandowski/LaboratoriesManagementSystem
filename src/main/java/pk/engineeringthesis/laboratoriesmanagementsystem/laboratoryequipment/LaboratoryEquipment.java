@@ -1,5 +1,6 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment;
 
+import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -14,6 +15,7 @@ public class LaboratoryEquipment {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @ContainedIn
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "laboratory_id")
     private Laboratory laboratory;

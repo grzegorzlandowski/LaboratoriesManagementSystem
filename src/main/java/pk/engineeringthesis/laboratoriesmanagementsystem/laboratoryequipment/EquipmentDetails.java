@@ -1,5 +1,6 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment;
 
+import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import javax.persistence.*;
@@ -19,7 +20,8 @@ public class EquipmentDetails {
     private String type;
     @Field
     private String description;
-    @OneToMany(mappedBy = "equipmentDetails",fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @ContainedIn
+    @OneToMany(mappedBy = "equipmentDetails",fetch = FetchType.LAZY)
     private Set<LaboratoryEquipment> laboratoryEquipment = new HashSet<>();
 
 
