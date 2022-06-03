@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //.antMatchers("/gfx/logopk.png","/rejestracja","/rejestracja/*","/upload","/deleteimage","/gfx/*","/api/*","/api/events","/api/events/create","/css/*","/js/*","/getcount")
-                .antMatchers("/rejestracja/*","/css/*","/js/*","/gfx/*")
+                .antMatchers("/rejestracja","/rejestracja/*","/css/*","/js/*","/gfx/*")
                 .permitAll()
                 .antMatchers("/getcount","/dodajaktualnosc","/zapiszaktualnosc","/edytujaktualnosc/{id}","/zaktualizujaktualnosc/{id}","/archiwizuj/{id}",
                         "/archiwalneaktualnosci","/przywrocaktualnosc/{id}","/dodajlaboratorium","/zapiszlaboratorium","/potwierdzuzytkownika","/potwierdzuzytkownika/{id}","/nowyuzytkownik",

@@ -32,7 +32,7 @@
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
-
+    <h1 class="text-center" style="color: #FFE8E8">Dodaj nowe zgłoszenie</h1>
     <div class="bodycontainer" class="container rounded">
 
         <form:form id="form1" name="form1" modelAttribute="reportsystem" method="POST" action="/zapiszzgloszenie/${laboratoryid}" class="rounded p-4 p-sm-3">

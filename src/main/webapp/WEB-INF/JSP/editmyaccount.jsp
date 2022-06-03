@@ -19,7 +19,7 @@
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
 
-    <h1 class="text-center" style="color: #FFE8E8">Edycja Użytkownika ${editmyuser.username}</h1>
+    <h1 class="text-center" style="color: #FFE8E8">Edycja Użytkownika</h1>
     <div class="bodycontainer" class="container rounded">
         <form:form id="form1" name="form1" modelAttribute="editmyuser" method="POST" action="/edytujmojekonto/zapiszuzytkownika" class="rounded p-4 p-sm-3">
             <form:input required="required" type="hidden" id="usernames" class="form-control" path="id"/>

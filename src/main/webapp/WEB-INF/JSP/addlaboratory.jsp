@@ -21,7 +21,7 @@
 <body class="d-flex flex-column min-vh-100">
 <%@include file="navbar.jsp" %>
 <div id="bodycontainer" class="container rounded">
-
+    <h1 class="text-center" style="color: #FFE8E8">Stwórz Sale Laboratoryjną</h1>
     <div class="bodycontainer" class="container rounded">
 
 
