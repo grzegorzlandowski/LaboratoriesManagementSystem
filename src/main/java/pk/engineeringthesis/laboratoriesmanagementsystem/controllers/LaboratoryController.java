@@ -2,12 +2,14 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.searchengine.SearchEngine;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
@@ -147,34 +149,46 @@ public class LaboratoryController {
     @RequestMapping("/laboratorium/{id}")
     public String getLaboratory(Model model, @PathVariable(name = "id") Long id, HttpServletRequest request) {
 
-        Principal principal = request.getUserPrincipal();
-        User user =userservice.getUserByUsername(principal.getName());
-        Laboratory laboratory = laboratoryService.get(id);
-        if(laboratory.getSupervisorId()==user || user.getRole().equals("ROLE_ADMIN")){
-            model.addAttribute("editor","yes");
+
+        try {
+            Principal principal = request.getUserPrincipal();
+            User user = userservice.getUserByUsername(principal.getName());
+            Laboratory laboratory = laboratoryService.get(id);
+            if (laboratory.getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("editor", "yes");
+            } else {
+                model.addAttribute("editor", "no");
+            }
+            model.addAttribute("laboratory", laboratory);
+            return "getlaboratory";
         }
-        else
+        catch (Exception e)
         {
-            model.addAttribute("editor","no");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
-        model.addAttribute("laboratory",laboratory);
-        return "getlaboratory";
     }
 
     @RequestMapping("/edytujlaboratorium/{id}")
     public String editLaboratory(Model model,@PathVariable(name = "id") Long id,HttpServletRequest request){
 
-        Principal principal = request.getUserPrincipal();
-        User user =userservice.getUserByUsername(principal.getName());
-        Laboratory laboratory = laboratoryService.get(id);
-        if(laboratory.getSupervisorId()==user || user.getRole().equals("ROLE_ADMIN")) {
-            model.addAttribute("editlaboratory", laboratory);
-            model.addAttribute("users", userservice.findSupervisor());
-            return "editlaboratory";
+        try {
+            Principal principal = request.getUserPrincipal();
+            User user = userservice.getUserByUsername(principal.getName());
+            Laboratory laboratory = laboratoryService.get(id);
+            if (laboratory.getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("editlaboratory", laboratory);
+                model.addAttribute("users", userservice.findSupervisor());
+                return "editlaboratory";
+            } else {
+                return "redirect:/403";
+            }
         }
-        else
-        {
-            return "redirect:/403";
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
     }
 
@@ -193,6 +207,5 @@ public class LaboratoryController {
 
         return "redirect:/laboratorium/"+laboratory.getId();
     }
-
 
 }

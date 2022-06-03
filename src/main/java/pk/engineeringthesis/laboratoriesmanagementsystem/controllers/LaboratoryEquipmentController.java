@@ -2,9 +2,11 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.LaboratoryService;
@@ -33,39 +35,47 @@ public class LaboratoryEquipmentController {
     @RequestMapping("/dodajwyposazenie/{id}")
     public String addLaboratoryEquipment(Model model, @PathVariable(name = "id") Long laboratoryid, HttpServletRequest request){
 
-        Principal principal = request.getUserPrincipal();
-        User user =userservice.getUserByUsername(principal.getName());
-        Laboratory laboratory = laboratoryService.get(laboratoryid);
-        if(laboratory.getSupervisorId()==user || user.getRole().equals("ROLE_ADMIN")) {
-            model.addAttribute("laboratoryequipment", new LaboratoryEquipment());
-            model.addAttribute("equipmentdetails", new EquipmentDetails());
-            model.addAttribute("laboratoryid", laboratoryid);
-            return "addlaboratoryequipment";
+        try {
+            Principal principal = request.getUserPrincipal();
+            User user = userservice.getUserByUsername(principal.getName());
+            Laboratory laboratory = laboratoryService.get(laboratoryid);
+            if (laboratory.getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("laboratoryequipment", new LaboratoryEquipment());
+                model.addAttribute("equipmentdetails", new EquipmentDetails());
+                model.addAttribute("laboratoryid", laboratoryid);
+                return "addlaboratoryequipment";
+            } else {
+                return "redirect:/403";
+            }
         }
-        else
-        {
-            return "redirect:/403";
-
-
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
     }
 
     @RequestMapping("/dodajwyposazeniezbazy/{id}")
     public String addLaboratoryEquipmentFromDatabase(Model model, @PathVariable(name = "id") Long laboratoryid, HttpServletRequest request){
 
-        Principal principal = request.getUserPrincipal();
-        User user =userservice.getUserByUsername(principal.getName());
-        Laboratory laboratory = laboratoryService.get(laboratoryid);
-        if(laboratory.getSupervisorId()==user || user.getRole().equals("ROLE_ADMIN")) {
-            model.addAttribute("laboratoryequipment", new LaboratoryEquipment());
-            model.addAttribute("equipmentdetails", equipmentDetailsService.listAll());
-            model.addAttribute("laboratoryid", laboratoryid);
-            return "addlaboratoryequipmentfromdatabase";
-        }
-        else
-        {
-            return "redirect:/403";
+        try {
+            Principal principal = request.getUserPrincipal();
+            User user = userservice.getUserByUsername(principal.getName());
+            Laboratory laboratory = laboratoryService.get(laboratoryid);
+            if (laboratory.getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+                model.addAttribute("laboratoryequipment", new LaboratoryEquipment());
+                model.addAttribute("equipmentdetails", equipmentDetailsService.listAll());
+                model.addAttribute("laboratoryid", laboratoryid);
+                return "addlaboratoryequipmentfromdatabase";
+            } else {
+                return "redirect:/403";
 
+            }
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
     }
 
@@ -101,45 +111,53 @@ public class LaboratoryEquipmentController {
     public String deleteEquipment(@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
 
 
-        Principal principal = request.getUserPrincipal();
-        User user =userservice.getUserByUsername(principal.getName());
-
-        LaboratoryEquipment laboratoryEquipment=laboratoryEquipmentService.get(id);
-        if(laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")){
-            laboratoryEquipmentService.delete(id);
-            redirAttrs.addFlashAttribute("succes","OK");
-            return "redirect:/laboratorium/"+laboratoryEquipment.getLaboratory().getId();
+        try {
+            Principal principal = request.getUserPrincipal();
+            User user = userservice.getUserByUsername(principal.getName());
+            LaboratoryEquipment laboratoryEquipment = laboratoryEquipmentService.get(id);
+            if (laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+                laboratoryEquipmentService.delete(id);
+                redirAttrs.addFlashAttribute("succes", "OK");
+                return "redirect:/laboratorium/" + laboratoryEquipment.getLaboratory().getId();
+            } else {
+                return "redirect:/403";
+            }
         }
-        else
-        {
-            return "redirect:/403";
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
-
     }
 
     @RequestMapping("/edytujwyposazenie/{id}")
     public String editLaboratory(Model model,@PathVariable(name = "id") Long id,HttpServletRequest request){
 
 
-        Principal principal = request.getUserPrincipal();
-        User user =userservice.getUserByUsername(principal.getName());
-        LaboratoryEquipment laboratoryEquipment= laboratoryEquipmentService.get(id);
-        if(laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
-            EquipmentDetails equipmentDetails = laboratoryEquipment.getEquipmentDetails();
-            model.addAttribute("editlaboratoryequipment", laboratoryEquipment);
-            model.addAttribute("editequipmentdetails", equipmentDetails);
-            return "editlaboratoryequipment";
+        try {
+            Principal principal = request.getUserPrincipal();
+            User user = userservice.getUserByUsername(principal.getName());
+            LaboratoryEquipment laboratoryEquipment = laboratoryEquipmentService.get(id);
+            if (laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+                EquipmentDetails equipmentDetails = laboratoryEquipment.getEquipmentDetails();
+                model.addAttribute("editlaboratoryequipment", laboratoryEquipment);
+                model.addAttribute("editequipmentdetails", equipmentDetails);
+                return "editlaboratoryequipment";
+            } else {
+                return "redirect:/403";
+            }
         }
-        else
-        {
-            return "redirect:/403";
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
     }
 
     @RequestMapping("/edytujwyposazenie/zapisz")
     public String saveEditedEquipment(@ModelAttribute("editlaboratoryequipment") LaboratoryEquipment laboratoryEquipment,
                                           @ModelAttribute("editequipmentdetails") EquipmentDetails equipmentDetails, RedirectAttributes redirAttrs){
-        System.out.println(laboratoryEquipment.getEquipmentDetails().getId());
+        //System.out.println(laboratoryEquipment.getEquipmentDetails().getId());
         equipmentDetails.setId(laboratoryEquipment.getEquipmentDetails().getId());
         equipmentDetailsService.save(equipmentDetails);
         laboratoryEquipmentService.save(laboratoryEquipment);
@@ -150,34 +168,45 @@ public class LaboratoryEquipmentController {
     @RequestMapping("/usunwyposazenie/{id}")
     public String deleteequipmentdetails(@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
 
-        Principal principal = request.getUserPrincipal();
-        User user =userservice.getUserByUsername(principal.getName());
-        LaboratoryEquipment laboratoryEquipment=laboratoryEquipmentService.get(id);
-        if(laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
-            EquipmentDetails equipmentDetails = laboratoryEquipment.getEquipmentDetails();
-            Integer count = equipmentDetailsService.countEquipmentDetailst(equipmentDetails);
-            if (count > 1) {
+        try {
+            Principal principal = request.getUserPrincipal();
+            User user = userservice.getUserByUsername(principal.getName());
+            LaboratoryEquipment laboratoryEquipment = laboratoryEquipmentService.get(id);
+            if (laboratoryEquipment.getLaboratory().getSupervisorId() == user || user.getRole().equals("ROLE_ADMIN")) {
+                EquipmentDetails equipmentDetails = laboratoryEquipment.getEquipmentDetails();
+                Integer count = equipmentDetailsService.countEquipmentDetailst(equipmentDetails);
+                if (count > 1) {
 
-                redirAttrs.addFlashAttribute("delete", "NOK");
+                    redirAttrs.addFlashAttribute("delete", "NOK");
 
+                } else {
+                    laboratoryEquipmentService.delete(id);
+                    equipmentDetailsService.delete(equipmentDetails.getId());
+                    redirAttrs.addFlashAttribute("succes", "OK");
+
+                }
+                return "redirect:/laboratorium/" + laboratoryEquipment.getLaboratory().getId();
             } else {
-                laboratoryEquipmentService.delete(id);
-                equipmentDetailsService.delete(equipmentDetails.getId());
-                redirAttrs.addFlashAttribute("succes", "OK");
-
+                return "redirect:/403";
             }
-            return "redirect:/laboratorium/" + laboratoryEquipment.getLaboratory().getId();
         }
-        else
-        {
-            return "redirect:/403";
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
-
     }
     @RequestMapping("/wyposazenie/{id}")
     public String getLaboratoryEquipment(Model model, @PathVariable(name = "id") Long id) {
 
-        model.addAttribute("laboratoryequipment",laboratoryEquipmentService.get(id));
-        return "getlaboratoryequipment";
+        try{
+            model.addAttribute("laboratoryequipment",laboratoryEquipmentService.get(id));
+            return "getlaboratoryequipment";
+        }
+        catch(Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 }
