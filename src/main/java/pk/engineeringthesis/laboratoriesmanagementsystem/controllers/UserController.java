@@ -1,8 +1,6 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,6 @@ import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.UserDetailsServiceImpl;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -188,7 +185,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/edytujhaslouzytkownika/zapiszuzytkownika", method=RequestMethod.POST)
-    public String SaveUserPasswordByAdmin(Model model, @ModelAttribute("edituserpassword") User user){
+    public String SaveUserPasswordByAdmin( @ModelAttribute("edituserpassword") User user){
 
              User thisuser = userservice.getUserById(user.getId());
              String pass=user.getPassword();
@@ -200,7 +197,7 @@ public class UserController {
     }
 
     @RequestMapping("/zablokujuzytkownika/{id}")
-    public String blockUser(Model model,@PathVariable(name = "id") Long id){
+    public String blockUser(@PathVariable(name = "id") Long id){
 
         User user=userservice.getUserById(id);
         user.setEnabled(false);
@@ -209,7 +206,7 @@ public class UserController {
     }
 
     @RequestMapping("/odblokujuzytkownika/{id}")
-    public String unlockUser(Model model,@PathVariable(name = "id") Long id){
+    public String unlockUser(@PathVariable(name = "id") Long id){
 
         User user=userservice.getUserById(id);
         user.setEnabled(true);
@@ -217,7 +214,7 @@ public class UserController {
         return "redirect:/zarzadzanieuzytkownikami/lista";
     }
     @RequestMapping("/usunuzytkownika/{id}")
-    public String deleteUser(Model model,@PathVariable(name = "id") Long id){
+    public String deleteUser(@PathVariable(name = "id") Long id){
 
         userservice.delete(id);
 

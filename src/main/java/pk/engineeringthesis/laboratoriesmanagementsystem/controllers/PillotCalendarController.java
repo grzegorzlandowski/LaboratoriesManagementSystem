@@ -64,6 +64,5 @@ public class PillotCalendarController {
         public LocalDateTime start;
         public LocalDateTime end;
         public String text;
-        public Long resource;
     }
 }

@@ -1,11 +1,13 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
 import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboardService;
@@ -22,8 +24,20 @@ public class InformationDashboardController {
     @RequestMapping("/aktualnosci/{id}")
     public String readInformationDashboard(@PathVariable(name = "id") Long id, Model model) {
 
-        model.addAttribute("readinformationdashboard",informationdashboardservice.get(id));
-        return "readinformationdashboard";
+
+        try{
+            InformationDashboard informationDashboard = informationdashboardservice.get(id);
+            model.addAttribute("readinformationdashboard",informationDashboard);
+            return "readinformationdashboard";
+        }
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+            }
+
+
     }
     @RequestMapping("/dodajaktualnosc")
     public String addInformationDashboard(Model model){
@@ -51,8 +65,17 @@ public class InformationDashboardController {
     @RequestMapping("/edytujaktualnosc/{id}")
     public String editnformationDashboard(@PathVariable(name = "id") Long id, Model model) {
 
-        model.addAttribute("editinformationdashboard",informationdashboardservice.get(id));
-        return "editinformationdashboard";
+
+        try {
+            InformationDashboard informationDashboard = informationdashboardservice.get(id);
+            model.addAttribute("editinformationdashboard", informationDashboard);
+            return "editinformationdashboard";
+        }
+        catch (Exception e)    {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
     @RequestMapping("/zaktualizujaktualnosc/{id}")
     public String saveEditedItnformationDashboard(@ModelAttribute("editinformationdashboard") InformationDashboard informationdashboard,@PathVariable(name = "id") Long id) {
@@ -66,7 +89,9 @@ public class InformationDashboardController {
         }
         catch (Exception e )
         {
-
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
 
         return "redirect:/";
@@ -75,15 +100,18 @@ public class InformationDashboardController {
     @RequestMapping("/archiwizuj/{id}")
     public String archiveInformationDashboard(@PathVariable(name = "id") Long id) {
 
-      InformationDashboard informationDashboard = informationdashboardservice.get(id);
-       informationDashboard.setIsactive(false);
-        try {
-            informationdashboardservice.save(informationDashboard);
 
+
+        try {
+            InformationDashboard informationDashboard = informationdashboardservice.get(id);
+            informationDashboard.setIsactive(false);
+            informationdashboardservice.save(informationDashboard);
         }
         catch (Exception e )
         {
-
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
         return "redirect:/";
     }
@@ -98,18 +126,19 @@ public class InformationDashboardController {
     @RequestMapping("/przywrocaktualnosc/{id}")
     public String restoreInformationDashboard(@PathVariable(name = "id") Long id) {
 
-        InformationDashboard informationDashboard = informationdashboardservice.get(id);
-        informationDashboard.setIsactive(true);
+
         try {
+            InformationDashboard informationDashboard = informationdashboardservice.get(id);
+            informationDashboard.setIsactive(true);
             informationdashboardservice.save(informationDashboard);
 
         }
         catch (Exception e )
         {
-
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
         }
         return "redirect:/archiwalneaktualnosci";
     }
-
-
 }

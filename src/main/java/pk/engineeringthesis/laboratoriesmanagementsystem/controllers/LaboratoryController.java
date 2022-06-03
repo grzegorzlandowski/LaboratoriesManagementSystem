@@ -97,7 +97,7 @@ public class LaboratoryController {
     }
 
     @RequestMapping(value ="/mojelaboratoria",method = RequestMethod.GET)
-    public String laboratoryList(Model model,HttpServletRequest request) {
+    public String laboratoryListSupervisor(Model model,HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         User user = userservice.getUserByUsername(principal.getName());
         List<Laboratory> laboratoryList = laboratoryService.findBySupervisor(user);
@@ -145,7 +145,7 @@ public class LaboratoryController {
 
 
     @RequestMapping("/laboratorium/{id}")
-    public String getReport(Model model, @PathVariable(name = "id") Long id, HttpServletRequest request) {
+    public String getLaboratory(Model model, @PathVariable(name = "id") Long id, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
         User user =userservice.getUserByUsername(principal.getName());

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>403 Wstep zabroniony</title>
+    <title>500 Blad Serwera</title>
     <style>
         @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 
@@ -64,10 +64,10 @@
 </head>
 
 <body>
-    <div id="app">
-        <div>403</div>
-        <div class="txt"> Wstep zabroniony<span class="blink">_</span> </div>
-    </div>
+<div id="app">
+    <div>500</div>
+    <div class="txt"> Blad Serwera<span class="blink">_</span> </div>
+</div>
 </body>
 
 </html>

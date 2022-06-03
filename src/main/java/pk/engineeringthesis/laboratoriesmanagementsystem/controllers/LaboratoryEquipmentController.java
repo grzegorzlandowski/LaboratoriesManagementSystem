@@ -98,7 +98,7 @@ public class LaboratoryEquipmentController {
     }
 
     @RequestMapping("/usunstanowisko/{id}")
-    public String deleteEquipment(Model model,@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
+    public String deleteEquipment(@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
 
 
         Principal principal = request.getUserPrincipal();
@@ -148,7 +148,7 @@ public class LaboratoryEquipmentController {
     }
 
     @RequestMapping("/usunwyposazenie/{id}")
-    public String deleteequipmentdetails(Model model,@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
+    public String deleteequipmentdetails(@PathVariable(name = "id") Long id, RedirectAttributes redirAttrs,HttpServletRequest request){
 
         Principal principal = request.getUserPrincipal();
         User user =userservice.getUserByUsername(principal.getName());

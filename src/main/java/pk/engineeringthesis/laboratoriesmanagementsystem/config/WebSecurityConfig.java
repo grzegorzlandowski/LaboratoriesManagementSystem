@@ -43,8 +43,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/gfx/logopk.png","/rejestracja","/rejestracja/*","/upload","/deleteimage","/gfx/*","/api/*","/api/events","/api/events/create","/css/*","/js/*","/getcount")
                 .antMatchers("/rejestracja/*","/css/*","/js/*","/gfx/*")
                 .permitAll()
-                .antMatchers("/upload","/deleteimage")
-                .hasAnyRole("ADMIN","SUPERVISOR","EMPLOYEE")
+                .antMatchers("/getcount","/dodajaktualnosc","/zapiszaktualnosc","/edytujaktualnosc/{id}","/zaktualizujaktualnosc/{id}","/archiwizuj/{id}",
+                        "/archiwalneaktualnosci","/przywrocaktualnosc/{id}","/dodajlaboratorium","/zapiszlaboratorium","/potwierdzuzytkownika","/potwierdzuzytkownika/{id}","/nowyuzytkownik",
+                        "/nowyuzytkownik/zapiszuzytkownika","/zarzadzanieuzytkownikami/lista","/edytujuzytkownika/{id}","/edytujuzytkownika/zapiszuzytkownika","/edytujhaslouzytkownika/{id}",
+                        "/edytujhaslouzytkownika/zapiszuzytkownika","/zablokujuzytkownika/{id}","/odblokujuzytkownika/{id}","/usunuzytkownika/{id}")
+                .hasRole("ADMIN")
+                .antMatchers("/mojelaboratoria","opiekun/mojezgloszenia","/zgloszenie/{id}/zmienstatus","/zmienstatuszgloszenia/{id}","opiekun/mojezgloszenia/archiwalne",
+                        "/potwierdztermin","/potwierdztermin/{id}","/anulujtermin/{id}")
+                .hasRole("SUPERVISOR")
+                .antMatchers("/edytujlaboratorium/{id}","/zapiszedytowanelaboratorium","/dodajwyposazenie/{id}","/dodajwyposazeniezbazy/{id}","/zapiszwyposazenie/{id}",
+                        "/zapiszwyposazeniezbazy/{id}","/usunstanowisko/{id}","/edytujwyposazenie/{id}","/edytujwyposazenie/zapisz","/usunwyposazenie/{id}","/termin/usun/{id}",
+                        "/kalendarz/termin/stworz/{id}")
+                .hasAnyRole("ADMIN","SUPERVISOR")
+                .antMatchers("/nowezgloszenie/{id}","/zapiszzgloszenie/{id}","/mojezgloszenia","/zgloszenie/{id}","/zgloszenie/{id}/nowawiadomosc","/zapiszwiadomosc/{id}",
+                        "/mojezgloszenia/archiwalne","/nowezgloszenie")
+                .hasAnyRole("SUPERVISOR","EMPLOYEE")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll() .loginPage("/login").defaultSuccessUrl("/")
