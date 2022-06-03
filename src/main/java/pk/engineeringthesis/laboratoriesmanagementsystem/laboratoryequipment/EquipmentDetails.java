@@ -2,7 +2,6 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment;
 
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;

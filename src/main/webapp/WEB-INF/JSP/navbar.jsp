@@ -1,9 +1,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-<sec:authorize access="isAuthenticated()">
+<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 <script src="/../js/getCountUserToActiveAndNotifications.js"></script>
 </sec:authorize>
+<sec:authorize access="hasAnyRole('ROLE_SUPERVISOR','ROLE_EMPLOYEE')"><script src="/../js/showNotifications.js"></script></sec:authorize>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <nav class="navbar navbar-expand-lg navbar-dark ">
     <div class="container-fluid">

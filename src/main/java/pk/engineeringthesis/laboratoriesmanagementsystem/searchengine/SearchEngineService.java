@@ -1,24 +1,15 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.searchengine;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
-
-
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.BooleanJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
-
 import lombok.RequiredArgsConstructor;
-
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
-import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
-
 
 @Service
 @RequiredArgsConstructor

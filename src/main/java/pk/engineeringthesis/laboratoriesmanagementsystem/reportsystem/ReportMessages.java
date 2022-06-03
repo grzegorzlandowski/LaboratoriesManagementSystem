@@ -1,7 +1,6 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem;
 
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

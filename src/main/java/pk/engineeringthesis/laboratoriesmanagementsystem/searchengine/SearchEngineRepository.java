@@ -2,7 +2,6 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.searchengine;
 
 import org.springframework.stereotype.Repository;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
-import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
 
 import java.util.List;
 

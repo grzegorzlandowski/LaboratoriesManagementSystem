@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
-
 import java.util.List;
 
 @Service

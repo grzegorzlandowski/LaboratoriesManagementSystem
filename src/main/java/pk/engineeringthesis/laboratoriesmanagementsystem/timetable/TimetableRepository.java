@@ -6,10 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 
 public interface TimetableRepository extends JpaRepository<Timetable, Long> {
 

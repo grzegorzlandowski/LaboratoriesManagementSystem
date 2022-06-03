@@ -1,9 +1,7 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem;
 
-import org.hibernate.annotations.GenericGenerator;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

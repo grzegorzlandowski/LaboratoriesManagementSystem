@@ -1,16 +1,14 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment;
 
-
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
-
 import javax.persistence.*;
+
 @Indexed
 @Entity
 public class LaboratoryEquipment {
-
 
     @Id
     @Column(name = "ID")

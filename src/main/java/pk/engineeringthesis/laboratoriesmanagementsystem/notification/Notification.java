@@ -1,11 +1,8 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.notification;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

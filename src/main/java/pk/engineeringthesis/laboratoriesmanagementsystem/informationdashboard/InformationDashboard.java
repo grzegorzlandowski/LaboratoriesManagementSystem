@@ -1,5 +1,4 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -8,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import java.time.LocalDate;
-import java.util.Date;
-
 
 @Entity
 @Table(name = "information_dashboard")

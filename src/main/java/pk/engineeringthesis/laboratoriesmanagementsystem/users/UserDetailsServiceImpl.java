@@ -3,16 +3,10 @@ package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import pk.engineeringthesis.laboratoriesmanagementsystem.informationdashboard.InformationDashboard;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional

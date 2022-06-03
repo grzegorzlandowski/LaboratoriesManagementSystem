@@ -7,7 +7,7 @@ function getCount() {
             ("Do akceptacji ("+data+")");
         },
         error : function()  {
-            alert("siema")
+
         }
     });
 

@@ -1,8 +1,6 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Where;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratory.Laboratory;
@@ -10,10 +8,10 @@ import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notificati
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportMessages;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
 import pk.engineeringthesis.laboratoriesmanagementsystem.timetable.Timetable;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Indexed

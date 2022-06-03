@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
-import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.EquipmentDetails;
 import pk.engineeringthesis.laboratoriesmanagementsystem.laboratoryequipment.LaboratoryEquipment;
 import pk.engineeringthesis.laboratoriesmanagementsystem.reportsystem.ReportSystem;
 import pk.engineeringthesis.laboratoriesmanagementsystem.timetable.Timetable;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
