@@ -51,7 +51,7 @@ public class ReportSystemController {
     }
 
     @RequestMapping("/zapiszzgloszenie/{id}")
-    public String SaveNewReport(@ModelAttribute("reportsystem") ReportSystem reportSystem, @PathVariable(name = "id") Long laboratoryid,HttpServletRequest request){
+    public String SaveNewReport(@ModelAttribute("reportsystem") ReportSystem reportSystem, @PathVariable(name = "id") Long laboratoryid,RedirectAttributes redirAttrs,HttpServletRequest request){
 
         reportSystem.setId(0);
         Laboratory laboratory= laboratoryService.get(laboratoryid);
@@ -73,7 +73,7 @@ public class ReportSystemController {
 
         reportSystemService.save(reportSystem);
         notificationService.save(notification);
-
+        redirAttrs.addFlashAttribute("succes","OK");
         return "redirect:/nowezgloszenie";
     }
     @RequestMapping("/mojezgloszenia")

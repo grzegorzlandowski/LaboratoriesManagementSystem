@@ -83,7 +83,8 @@ public class TimetableController {
                 timetable.setConfirmed(true);
             }
             timetableService.save(timetable);
-
+            redirAttrs.addFlashAttribute("notificationok", "Termin dla sali "+timetable.getLaboratory().getName()+ " został dodany poprawnie. Rozpoczecie zajęć: "
+                    +timetable.getStartFormatter()+" Zakończenie zajęć: "+timetable.getEndFormatter());
             return "redirect:/nowytermin";
 
         }

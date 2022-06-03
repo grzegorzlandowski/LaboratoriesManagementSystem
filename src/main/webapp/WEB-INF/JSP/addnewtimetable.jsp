@@ -21,7 +21,12 @@
 <div id="bodycontainer" class="container rounded">
 
     <div class="bodycontainer" class="container rounded">
-
+        <c:if test="${notificationok!= null}" >
+            <div id="usercheck" class="alert alert-success alert-dismissible fade show" role="alert">
+                    ${notificationok}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
         <form:form id="form1" name="form1" modelAttribute="newtimetable" method="POST" action="/zapisztermin" class="rounded p-4 p-sm-3">
             <div class="mb-3">
                 <label class="form-label">Data rozpoczęcia</label>
@@ -50,6 +55,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </c:if>
+
             <div class="d-flex justify-content-center"><button class="btn btn-primary" type="submit">Zapisz Termin</button></div>
         </form:form>
     </div>

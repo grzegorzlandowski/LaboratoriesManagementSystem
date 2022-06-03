@@ -12,7 +12,10 @@ function sendFile(file, editor) {
             $(editor).summernote('editor.insertImage', data);
         },
         error : function()  {
-            alert("Podczas dodawania zdjęcia wystąpił problem.");
+            //alert("Podczas dodawania zdjęcia wystąpił problem.");
+            swal({
+                text: "Podczas dodawania zdjęcia wystąpił problem.",
+            });
         }
     });
 }
@@ -22,10 +25,16 @@ function deleteFile(path) {
         type : "POST",
         url : "/deleteimage",
         success : function()  {
-            alert("Zdjęcie poprawnie usunięte.");
+            //alert("Zdjęcie poprawnie usunięte.");
+            swal({
+                text: "Zdjęcie poprawnie usunięte.",
+            });
         },
         error : function(data, textStatus, xhr)  {
             alert("Podczas usuwania zdjęcia nastąpił problem.");
+            swal({
+                text: "Podczas usuwania zdjęcia nastąpił problem.",
+            });
         }
     });
 

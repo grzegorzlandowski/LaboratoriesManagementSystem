@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="/../css/table.css">
     <link rel="stylesheet" href="/../css/searchcss.css">
     <script src="/../js/confirmbox.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
