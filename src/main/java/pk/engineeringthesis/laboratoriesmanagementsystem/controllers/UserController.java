@@ -1,9 +1,11 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pk.engineeringthesis.laboratoriesmanagementsystem.config.MailService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.config.PasswordEncryption;
@@ -88,14 +90,21 @@ public class UserController {
     @RequestMapping("/potwierdzuzytkownika/{id}")
     public String confirmUser(@PathVariable(name = "id") Long id)throws MessagingException{
 
-        User user=userservice.getUserById(id);
-        user.setStatus("Zaakceptowane");
-        userservice.save(user);
-        mailService.sendMail(user.getEmail(),"System Zarządzania Laboratoriami Wydziałowymi - Konto Potwierdzone!",
-                "<center><h1>Administrator potwierdził twoje konto!</h1></center>"+
-                        "Twoje konto zostało potwierdzone przez administratora. Teraz możesz się zalogować wykorzystującswoje dane(login oraz hasło) " +
-                        "wpisane podczas rejestracji",true);
-        return "redirect:/potwierdzuzytkownika";
+        try {
+            User user = userservice.getUserById(id);
+            user.setStatus("Zaakceptowane");
+            userservice.save(user);
+            mailService.sendMail(user.getEmail(), "System Zarządzania Laboratoriami Wydziałowymi - Konto Potwierdzone!",
+                    "<center><h1>Administrator potwierdził twoje konto!</h1></center>" +
+                            "Twoje konto zostało potwierdzone przez administratora. Teraz możesz się zalogować wykorzystującswoje dane(login oraz hasło) " +
+                            "wpisane podczas rejestracji", true);
+            return "redirect:/potwierdzuzytkownika";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 
     @RequestMapping("/nowyuzytkownik")
@@ -149,9 +158,17 @@ public class UserController {
     @RequestMapping("/edytujuzytkownika/{id}")
     public String editUserByAdmin(Model model,@PathVariable(name = "id") Long id){
 
-        User user=userservice.getUserById(id);
-       model.addAttribute("edituser",user);
-        return "edituserbyadmin";
+        try {
+            User user = userservice.getUserById(id);
+            user.getId();
+            model.addAttribute("edituser", user);
+            return "edituserbyadmin";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 
     @RequestMapping(value="/edytujuzytkownika/zapiszuzytkownika", method=RequestMethod.POST)
@@ -178,10 +195,17 @@ public class UserController {
     @RequestMapping("/edytujhaslouzytkownika/{id}")
     public String editUserPasswordByAdmin(Model model,@PathVariable(name = "id") Long id){
 
-        User user=userservice.getUserById(id);
-        user.setPassword("");
-        model.addAttribute("edituserpassword",user);
-        return "edituserpasswordbyadmin";
+        try {
+            User user = userservice.getUserById(id);
+            user.setPassword("");
+            model.addAttribute("edituserpassword", user);
+            return "edituserpasswordbyadmin";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 
     @RequestMapping(value="/edytujhaslouzytkownika/zapiszuzytkownika", method=RequestMethod.POST)
@@ -199,26 +223,46 @@ public class UserController {
     @RequestMapping("/zablokujuzytkownika/{id}")
     public String blockUser(@PathVariable(name = "id") Long id){
 
-        User user=userservice.getUserById(id);
-        user.setEnabled(false);
-        userservice.save(user);
-        return "redirect:/zarzadzanieuzytkownikami/lista";
+        try {
+            User user = userservice.getUserById(id);
+            user.setEnabled(false);
+            userservice.save(user);
+            return "redirect:/zarzadzanieuzytkownikami/lista";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 
     @RequestMapping("/odblokujuzytkownika/{id}")
     public String unlockUser(@PathVariable(name = "id") Long id){
 
-        User user=userservice.getUserById(id);
-        user.setEnabled(true);
-        userservice.save(user);
-        return "redirect:/zarzadzanieuzytkownikami/lista";
+        try {
+            User user = userservice.getUserById(id);
+            user.setEnabled(true);
+            userservice.save(user);
+            return "redirect:/zarzadzanieuzytkownikami/lista";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
     @RequestMapping("/usunuzytkownika/{id}")
     public String deleteUser(@PathVariable(name = "id") Long id){
 
-        userservice.delete(id);
-
-        return "redirect:/zarzadzanieuzytkownikami/lista";
+        try {
+            userservice.delete(id);
+            return "redirect:/zarzadzanieuzytkownikami/lista";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 
     @RequestMapping("/edytujmojekonto")

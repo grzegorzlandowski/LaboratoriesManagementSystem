@@ -1,12 +1,14 @@
 package pk.engineeringthesis.laboratoriesmanagementsystem.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.Notification;
 import pk.engineeringthesis.laboratoriesmanagementsystem.notification.NotificationService;
 import pk.engineeringthesis.laboratoriesmanagementsystem.users.User;
@@ -52,10 +54,17 @@ public class NotificationController {
     @RequestMapping("/powiadoemienie/oznaczjakoprzeczytane/{id}")
     public String confirmNotification(@PathVariable(name = "id") Long id){
 
-        Notification notification=notificationService.get(id);
-        notification.setRead(true);
-        notificationService.save(notification);
-        return "redirect:/pokazpowiadomienia";
+        try {
+            Notification notification = notificationService.get(id);
+            notification.setRead(true);
+            notificationService.save(notification);
+            return "redirect:/pokazpowiadomienia";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 
     @RequestMapping("/pokazpowiadomienia/archiwalne")
@@ -72,10 +81,17 @@ public class NotificationController {
     @RequestMapping("/powiadoemienie/oznaczjakonieprzeczytane/{id}")
     public String restoreNotification(@PathVariable(name = "id") Long id){
 
-        Notification notification=notificationService.get(id);
-        notification.setRead(false);
-        notificationService.save(notification);
-        return "redirect:/pokazpowiadomienia/archiwalne";
+        try {
+            Notification notification = notificationService.get(id);
+            notification.setRead(false);
+            notificationService.save(notification);
+            return "redirect:/pokazpowiadomienia/archiwalne";
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "object not found"
+            );
+        }
     }
 
 
