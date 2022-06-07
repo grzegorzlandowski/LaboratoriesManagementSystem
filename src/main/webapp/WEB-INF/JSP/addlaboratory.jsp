@@ -51,6 +51,10 @@
                 <form:textarea id="summernote" path="description"/>
             </div>
             <div class="mb-3">
+                <label class="form-label">Informacje dodatkowe (np. ogłoszenie dla użytkowników)</label>
+                <form:input  class="form-control" path="additionalInformation"/>
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Przeznaczenie</label>
                 <form:input required="required" class="form-control" path="intended"/>
             </div>

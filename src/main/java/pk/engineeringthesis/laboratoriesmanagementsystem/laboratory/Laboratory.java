@@ -26,6 +26,7 @@ public class Laboratory {
     private String intended;
     @Field
     private String description;
+    private String additionalInformation;
     private Float area;
     private int seats;
     @IndexedEmbedded
@@ -120,5 +121,13 @@ public class Laboratory {
 
     public void setIntended(String intended) {
         this.intended = intended;
+    }
+
+    public String getAdditionalInformation() {
+        return additionalInformation;
+    }
+
+    public void setAdditionalInformation(String additionalInformation) {
+        this.additionalInformation = additionalInformation;
     }
 }

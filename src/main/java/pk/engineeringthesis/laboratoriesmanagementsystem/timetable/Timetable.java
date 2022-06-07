@@ -91,6 +91,7 @@ public class Timetable {
     }
 
     public String getText() {
+
         return text;
     }
 

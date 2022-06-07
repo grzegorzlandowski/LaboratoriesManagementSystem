@@ -56,8 +56,8 @@
                Edytuj laboratorium <i class="bi bi-pencil-square"></i>
             </button></c:if>
         <h1 class="text-center" style="color:#FFE8E8;">${laboratory.name}</h1>
-
-
+<c:if test="${laboratory.additionalInformation !=null }">
+<c:if test="${laboratory.additionalInformation !='' }"> <div style="color:#FFE8E8; font-size: 24px;"><b style="color:darkred;">Informacje dodatkowe:</b> ${laboratory.additionalInformation} </div></c:if></c:if>
         <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Przeznaczenie/Typ:</b> ${laboratory.intended}</div>
         <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Ilość miejsc:</b> ${laboratory.seats}</div>
 
@@ -66,6 +66,7 @@
 
 
         <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Opiekun:</b> ${laboratory.supervisorId.username} </div>
+
         <div style="color:#FFE8E8; font-size: 24px;"><b style="color:#D5D587;">Opis:</b>${laboratory.description}</div>
     </div>
 
