@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <nav class="navbar navbar-expand-lg navbar-dark ">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"> <img id="logopkwhite" src="/gfx/logopkwhite.png" alt="" width="160" height="45" class="d-inline-block align-text-top"></a> <a class="navbar-brand" href="/">System Zarządzania Laboratoriami Wydziałowymi</a>
+        <a class="navbar-brand" href="/">System Zarządzania Laboratoriami Wydziałowymi</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -109,7 +109,7 @@
                     <form id="logoutForm" method="POST" action="${contextPath}/logout">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
-                    <a class="nav-link" onclick="document.forms['logoutForm'].submit()">Wyloguj</a>
+                    <a class="nav-link" style="cursor: pointer;" onclick="document.forms['logoutForm'].submit()">Wyloguj <sec:authentication property="name"/></a>
                 </li>
 
                 <li id="bell" class="nav-item dropdown" >

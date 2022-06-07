@@ -39,7 +39,7 @@
     <c:if test="${userlist != []}" >
         <table class="table table-borderless table-responsive card-1 p-4">
             <thead><tr class="border-bottom">
-                <th colspan="5"><center><h1 style="color:#FFE8E8;">Lista użytkowników - Zarządzanie</h1></center></th>
+                <th colspan="6"><center><h1 style="color:#FFE8E8;">Lista użytkowników - Zarządzanie</h1></center></th>
 
             </tr></thead>
             <thead>
@@ -48,6 +48,7 @@
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>Email</th>
+                <th>Typ</th>
                 <th>Zarządzanie</th>
 
             </tr>
@@ -69,6 +70,9 @@
                             ${User.email}
                     </td>
                     <td>
+                        <c:if test="${User.role == 'ROLE_EMPLOYEE'}" >Pracownik</c:if> <c:if test="${User.role == 'ROLE_SUPERVISOR'}">Opiekun</c:if>
+                    </td>
+                    <td>
                         <button type="button" class="btn btn-primary" onclick="return JSconfirmEdit('Wybierz czy chcesz edytować dane użytkownika ${User.username} czy hasło?','/edytujuzytkownika/${User.id}','/edytujhaslouzytkownika/${User.id}')">
 
                             <i class="bi bi-pencil-square"></i> Edytuj
@@ -83,7 +87,7 @@
                             <i class="bi bi-archive"></i> Odblokuj
                         </button>
                         </c:if>
-                        <button type="button" class="btn btn-outline-danger" onclick="return JSconfirm('Czy na pewno chcesz Usunąć użytkownika ${User.username}?','/usunuzytkownika/${User.id}')">
+                        <button type="button" class="btn btn-danger" onclick="return JSconfirm('Czy na pewno chcesz Usunąć użytkownika ${User.username}?','/usunuzytkownika/${User.id}')">
                             <i class="bi bi-trash"></i>
                           Usuń
                         </button>

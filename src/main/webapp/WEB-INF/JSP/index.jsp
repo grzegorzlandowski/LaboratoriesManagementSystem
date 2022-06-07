@@ -2,8 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html >
 <head>
     <title>Strona Główna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -63,15 +62,15 @@
             <sec:authorize access="hasRole('ROLE_ADMIN')">
             <td>
                 <button type="button" class="btn btn-primary" onclick="window.location='/edytujaktualnosc/${InformationDashboard.id}'">
-                    <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-square"></i> Edytuj
                 </button>
                 <c:if test="${InformationDashboard.isactive==true}">
                 <button type="button" class="btn btn-warning" onclick="return JSconfirm('Czy na pewno chcesz zarchiwizować ogłoszenie?','/archiwizuj/${InformationDashboard.id}')">
-                    <i class="bi bi-archive-fill"></i>
+                    <i class="bi bi-archive-fill"></i> Archiwizuj
                     </c:if>
                     <c:if test="${InformationDashboard.isactive==false}">
                     <button type="button" class="btn btn-warning" onclick="return JSconfirm('Czy na pewno chcesz przywrócić ogłoszenie?','/przywrocaktualnosc/${InformationDashboard.id}')">
-                        <i class="bi bi-archive"></i>
+                        <i class="bi bi-archive"></i> Przywróć
                     </button>
                     </c:if>
             </td>

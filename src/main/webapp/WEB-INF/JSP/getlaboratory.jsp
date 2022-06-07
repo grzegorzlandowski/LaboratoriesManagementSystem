@@ -44,11 +44,11 @@
     <button onclick="history.back()" id="addmessage" type="button" class="btn btn-success">
         <i class="bi bi-back"></i> Powrót
     </button>
-    <sec:authorize access="hasAnyRole('ROLE_SUPERVISOR','ROLE_EMPLOYEE')"> <button onclick="window.location='/nowezgloszenie/${laboratory.id}'" id="addbutton" type="button" class="btn btn-warning"">
-        Zgłoś Awarię </i></sec:authorize>
-    </button>
+    <sec:authorize access="hasAnyRole('ROLE_SUPERVISOR','ROLE_EMPLOYEE')"> <button onclick="window.location='/nowezgloszenie/${laboratory.id}'" id="addbutton" type="button" class="btn btn-warning">
+        Nowe zgłoszenie <i class="bi bi-exclamation-triangle-fill"></i></button></sec:authorize>
+
     <button onclick="window.location='/kalendarz/${laboratory.id}'" id="addbutton" type="button" class="btn btn-info">
-    Wyświetl harmonogram </i>
+                Wyświetl harmonogram  <i class="bi bi-calendar3"></i>
     </button>
     <div class="bodycontainerlab" class="container rounded">
         <c:if test="${editor== 'yes'}">
@@ -112,7 +112,7 @@
 
                                 <i class="bi bi-pencil-square"></i> Edytuj
                             </button>
-                            <button type="button" class="btn btn-outline-danger" onclick="return JSconfirmDeleteLabEquipment('Wybierz Opcję usuniecia','/usunwyposazenie/${laboratoryEquipment.id}','/usunstanowisko/${laboratoryEquipment.id}')">
+                            <button type="button" class="btn btn-danger" onclick="return JSconfirmDeleteLabEquipment('Wybierz Opcję usuniecia','/usunwyposazenie/${laboratoryEquipment.id}','/usunstanowisko/${laboratoryEquipment.id}')">
                                 <i class="bi bi-trash"></i>
                                 Usuń
                             </button>

@@ -14,9 +14,11 @@
 </head>
 <body>
 <div class="d-flex justify-content-center" id="header">
-    <img src="/../gfx/logopk.png" alt="logopk" id="pic" width="350" height="100"/>
-
+    <h1 style ="color: #2C3E70;">System zarządzania</h1>
 </div>
+<h1 style ="color: #2C3E70" class="d-flex justify-content-center"> Laboratoriami wydziałowymi</h1>
+
+
 
 
 <div class="full-width d-flex justify-content-center and align-items-center">
