@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html >
 <head>
@@ -37,54 +36,37 @@
 </c:if>
 <c:if test="${informationdashboardlist != []}" >
     <table class="table table-borderless table-responsive card-1 p-4">
-        <thead><tr class="border-bottom">
-            <th colspan="3"><center><h1 style="color:#FFE8E8;">Tablica Ogłoszeń</h1></center></th>
-
-        </tr></thead>
-        <thead>
+        <thead><tr class="border-bottom"><th colspan="3"><center><h1 style="color:#FFE8E8;">Tablica Ogłoszeń</h1></center></th></tr></thead>
         <tr class="border-bottom">
             <th> Tytuł</th>
             <th>Data</th>
-            <sec:authorize access="hasRole('ROLE_ADMIN')"> <th>Zarządzanie</th> </sec:authorize>
-
+<sec:authorize access="hasRole('ROLE_ADMIN')"> <th>Zarządzanie</th> </sec:authorize>
         </tr>
-        </thead>
         <tbody>
-        <c:forEach var="InformationDashboard" items="${informationdashboardlist}">
+<c:forEach var="InformationDashboard" items="${informationdashboardlist}">
         <tr class="border-top">
-            <td style="cursor: pointer;" onclick="window.location='/aktualnosci/${InformationDashboard.id}'">
-                    ${InformationDashboard.title}
-            </td>
-
-            <td style="cursor: pointer;" onclick="window.location='/aktualnosci/${InformationDashboard.id}'">
-                    ${InformationDashboard.date}
-            </td>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <td>
-                <button type="button" class="btn btn-primary" onclick="window.location='/edytujaktualnosc/${InformationDashboard.id}'">
-                    <i class="bi bi-pencil-square"></i> Edytuj
-                </button>
-                <c:if test="${InformationDashboard.isactive==true}">
+            <td style="cursor: pointer;" onclick="window.location='/aktualnosci/${InformationDashboard.id}'">${InformationDashboard.title} </td>
+            <td style="cursor: pointer;" onclick="window.location='/aktualnosci/${InformationDashboard.id}'">${InformationDashboard.date}  </td>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+            <td><button type="button" class="btn btn-primary" onclick="window.location='/edytujaktualnosc/${InformationDashboard.id}'">
+                    <i class="bi bi-pencil-square"></i> Edytuj </button>
+<c:if test="${InformationDashboard.isactive==true}">
                 <button type="button" class="btn btn-warning" onclick="return JSconfirm('Czy na pewno chcesz zarchiwizować ogłoszenie?','/archiwizuj/${InformationDashboard.id}')">
                     <i class="bi bi-archive-fill"></i> Archiwizuj
-                    </c:if>
-                    <c:if test="${InformationDashboard.isactive==false}">
+</c:if>
+<c:if test="${InformationDashboard.isactive==false}">
                     <button type="button" class="btn btn-warning" onclick="return JSconfirm('Czy na pewno chcesz przywrócić ogłoszenie?','/przywrocaktualnosc/${InformationDashboard.id}')">
                         <i class="bi bi-archive"></i> Przywróć
                     </button>
-                    </c:if>
+</c:if>
             </td>
-            </sec:authorize>
+</sec:authorize>
         </tr>
-        </c:forEach>
+</c:forEach>
         </tbody>
     </table>
 </c:if>
-
-
 </div>
-
 <%@include file="footer.jsp" %>
 </body>
-
 </html>

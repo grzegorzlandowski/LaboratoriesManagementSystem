@@ -68,7 +68,7 @@
 
                         <button onclick="return JSconfirm('Czy na pewno chcesz potwierdzić Termin?','/potwierdztermin/${Timetable.id}')"
                                 type="button" class="btn btn-success"><i class="bi bi-check-square-fill"></i> Potwierdź</button>
-                        <button type="button" class="btn btn-outline-danger" onclick="return JSconfirm('Czy na pewno chcesz anulować termin zgłoszony przez użytkownika?','/anulujtermin/${Timetable.id}')">
+                        <button type="button" class="btn btn-danger" onclick="return JSconfirm('Czy na pewno chcesz anulować termin zgłoszony przez użytkownika?','/anulujtermin/${Timetable.id}')">
                             <i class="bi bi-x-circle-fill"></i>
                             Anuluj
 

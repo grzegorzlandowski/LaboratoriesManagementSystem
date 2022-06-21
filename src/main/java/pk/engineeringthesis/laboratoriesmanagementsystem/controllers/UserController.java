@@ -63,10 +63,10 @@ public class UserController {
             user.setEnabled(true);
             user.setStatus("Oczekuję na akceptacje");
             userservice.save(user);
-            mailService.sendMail(user.getEmail(),"System Zarządzania Laboratoriami Wydziałowymi - Potwierdzenie Rejestracji",
+            /*mailService.sendMail(user.getEmail(),"System Zarządzania Laboratoriami Wydziałowymi - Potwierdzenie Rejestracji",
                     "<center><h1>Rejestracja przebiegła pomyślnie!</h1></center>"+
                             "Twoje konto zostało założone, zanim będziesz mógł z niego korzystać poczekaj na zakcepotwanie przez administratora." +
-                            "O aktywowaniu swojego konta zostaniesz również powiadomiony mailowo.",true);
+                            "O aktywowaniu swojego konta zostaniesz również powiadomiony mailowo.",true); */
 
             User admin= userservice.getUserByUsername("administrator");
             if(admin!= null) {
@@ -139,10 +139,10 @@ public class UserController {
             user.setPassword(codepass);
             user.setStatus("Zaakceptowane");
             userservice.save(user);
-            mailService.sendMail(user.getEmail(),"System Zarządzania Laboratoriami Wydziałowymi - Potwierdzenie Stworzenia konta przez administratora",
+            /*mailService.sendMail(user.getEmail(),"System Zarządzania Laboratoriami Wydziałowymi - Potwierdzenie Stworzenia konta przez administratora",
                     "<center><h1>Adminstrator stworzył dla Ciebie konto!</h1></center>"+
                             "Twoje konto zostało stworzone przez administratora, teraz możesz się zalogować korzystając z loginu " + user.getUsername()+
-                            ". Jeśli jeszcze nie masz hasła skontaktuj się z administratorem.",true);
+                            ". Jeśli jeszcze nie masz hasła skontaktuj się z administratorem.",true);*/
            redirAttrs.addFlashAttribute("status", "OK");
 
             return "redirect:/nowyuzytkownik";
